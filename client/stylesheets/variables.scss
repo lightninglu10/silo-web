@@ -1,0 +1,70 @@
+/* Icon colors */
+$file-plus: #8F8F8F;
+$tab-color: #365068;
+$monte-carlo: #67C2AC;
+
+/* width & height */
+$toolbar-width: 330px;
+$sideBar-width: 250px;
+$bottomControls-height: 75px;
+$playgroundControls-height: 64px;
+$upgrade-to-pro-height: 40px;
+$nando-pro-modal-height: 630px;
+
+/* background colors */
+$main-background: #fff;
+$sidenav-background-old: #2779DF; /* Old browsers */
+$sidenav-background-FF: -moz-linear-gradient(#30b0f4, #2170e9); /* FF3.6-15 */
+$sidenav-background-chrome: -webkit-linear-gradient(#30b0f4, #2170e9); /* Chrome10-25,Safari5.1-6 */
+$sidenav-background-new: linear-gradient(#30b0f4, #2170e9); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+$chat-background: #F9FAFD;
+$chat-submit-background: #f2f6fb;
+$chatbox-tab-active: #e5f0fc;
+$new-message: #f66a83;
+$new-message-hover: #e5576c;
+$video-border: #aaaeb5;
+$message-hover: #F3F5FA;
+$video-box-hover: #ecf7fe;
+$paper-clip-hover: #5A5A5A;
+$mic-control: #b2ddfa;
+$cam-control: #c4eefd;
+$vol-control: #b4d3f8;
+$cam-off: #76d6f9;
+$cam-on: #1162C8;
+$mic-off: #66bcf5;
+$mic-on: #1162C8;
+$vol-off: #569bf0;
+$control-bar: #3984E1;
+$nando-pro-header-background: #5d60f1;
+$upgrade-to-pro-background: #5D62FF;
+$nando-pro-checklist-background: #f4f5fe;
+$upgrade-btn-background: #575be5;
+
+/* join component colors & background*/
+$join-hover-color: #DDE0E6;
+$join-outline: #aaaeb5;
+
+/* modal & hover background */
+$modal-background-ff: -moz-linear-gradient(top, rgba(56,174,240,0.7) 0%, rgba(41,120,231,0.7) 100%); /* FF3.6-15 */
+$modal-background-chrome: -webkit-linear-gradient(top, rgba(56,174,240,0.7) 0%,rgba(41,120,231,0.7) 100%); /* Chrome10-25,Safari5.1-6 */
+$modal-background-new: linear-gradient(to bottom, rgba(56,174,240,0.7) 0%,rgba(41,120,231,0.7) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+$modal-background-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d938aef0', endColorstr='#d92978e7',GradientType=0 ); /* IE6-9 */
+
+/* Playground background */
+$playground-background: #404753;
+$playgroundControls-background: #343943;
+$playgroundTab-active: #464b55;
+$upload-absolute-background: rgba(0, 0, 0, .7);
+
+/* text colors */
+$message-color: #2c2d30;
+$action-color: #9e9ea6;
+$video-box-hover-text: #4280B3;
+$cam-color: #fff;
+$mic-color: #fff;
+$vol-color: #fff;
+$nando-pro-color: #FFFC4E;
+$error-color: #d9534f;
+
+/* loader background */
+$loader-background: rgba(0, 0, 0, .7);

@@ -1,0 +1,49 @@
+{
+  "name": "silo-web",
+  "version": "1.0.0",
+  "description": "Text Message Management",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node server",
+    "build": "webpack --config ./webpack.production.config.js --bail"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lightninglu10/silo-web.git"
+  },
+  "author": "Patrick Lu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lightninglu10/silo-web/issues"
+  },
+  "homepage": "https://github.com/lightninglu10/silo-web#readme",
+  "dependencies": {
+    "adminlte-reactjs": "^1.0.6",
+    "autoprefixer": "^6.7.0",
+    "babel": "^6.5.2",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "clean-webpack-plugin": "^0.1.15",
+    "copy-webpack-plugin": "^4.0.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.26.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
+    "react-router": "^3.0.2",
+    "react-router-redux": "^4.0.7",
+    "react-router-scroll": "^0.4.1",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.7.4",
+    "redux-thunk": "^2.2.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-preset-latest": "^6.22.0"
+  }
+}
