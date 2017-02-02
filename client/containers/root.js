@@ -17,7 +17,7 @@ class Root extends React.Component {
 
     render() {
         return (
-            <div className="startofapp">
+            <div className="startofapp" style={{'height': '100%'}}>
                 <Routes history={this.props.history} />
             </div>
         );

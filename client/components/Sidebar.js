@@ -52,19 +52,12 @@ class Sidebar extends React.Component {
                         <li className={"treeview" + (sidebar.active === 'received' ? ' active' : '')} onClick={() => sidebarActions.changeActive('received')}>
                             <a style={styles.pageLink}>
                                 <i className="fa fa-envelope-o"></i>
-                                <span>Received Messages</span>
+                                <span>Messages</span>
                                 <span className="label label-primary pull-right">4</span>
                             </a>
                             <ul className="treeview-menu">
                                 <li><a href="pages/layout/top-nav.html"><i className="fa fa-circle-o"></i> Top Navigation</a></li>
                             </ul>
-                        </li>
-                        <li className={(sidebar.active === 'sent' ? ' active' : '')} onClick={() => sidebarActions.changeActive('sent')}>
-                            <a style={styles.pageLink}>
-                                <i className="fa fa-share"></i>
-                                <span>Sent Messages</span>
-                                <small className="label pull-right bg-green">new</small>
-                            </a>
                         </li>
                         <li className={"treeview" + (sidebar.active === 'customers' ? ' active' : '')} onClick={() => sidebarActions.changeActive('customers')}>
                             <a style={styles.pageLink}>

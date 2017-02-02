@@ -7,4 +7,5 @@ module.exports = combineReducers({
     // 
     dashboard: require('./dashboard'),
     sidebar: require('./sidebar'),
+    messages: require('./messages'),
 });

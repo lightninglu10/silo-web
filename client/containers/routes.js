@@ -18,9 +18,9 @@ import useScroll from 'react-router-scroll';
 import Dashboard from './Dashboard';
 
 // Components
-import ReceivedMessages from '../components/ReceivedMessages';
-import SentMessages from '../components/SentMessages';
-import Customers from '../components/Customers';
+import MessagesContainer from '../containers/MessagesContainer';
+// import SentMessages from '../components/SentMessages';
+// import Customers from '../components/Customers';
 
 class Routes extends React.Component {
 
@@ -32,9 +32,7 @@ class Routes extends React.Component {
         return (
             <Router history={this.props.history} routes={this._routes} onUpdate={() => window.scrollTo(0, 0)}>
                 <Route component={Dashboard}>
-                    <IndexRoute component={ReceivedMessages} />
-                    <Route path='/sent' component={SentMessages} />
-                    <Route path='/customers' component={Customers} />
+                    <Route path="/" component={MessagesContainer} />
                 </Route>
             </Router>
         );

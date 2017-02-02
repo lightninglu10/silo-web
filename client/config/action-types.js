@@ -10,4 +10,7 @@ module.exports = {
 
     // Sidebar
     CHANGE_ACTIVE: 'Switch active state',
+
+    // Messages
+    CHOOSE_ACTIVE_MESSAGE: 'Choose the active message',
 }

@@ -36,9 +36,10 @@ class Dashboard extends React.Component {
             }
         }
         return (
-            <div className={"dashboard skin-blue sidebar-mini" + sidebarState}>
+            <div className={"dashboard skin-blue sidebar-mini" + sidebarState} style={{height: '100%'}}>
                 <Sidebar />
                 <Headerbar />
+                { this.props.children }
             </div>
         );
     }
