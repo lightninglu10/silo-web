@@ -7,6 +7,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var CleanWebpackPlugin = require('clean-webpack-plugin')
+var BundleTracker = require('webpack-bundle-tracker')
 
 var sassLoaders = [
   'css-loader',
@@ -18,13 +19,14 @@ module.exports = {
   devtool: 'source-map',
   debug: true,
   entry: [
-    // 'react-hot-loader/patch',
-    // 'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
     './client/index.dev.js'
   ],
   output: {
     path: __dirname + '/dist',
-    filename: '[name]-[hash].min.js',
+    filename: '[name]-[hash].js',
+    publicPath: 'http://localhost:3000/',
   },
   module: {
     loaders: [
@@ -66,7 +68,8 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
-    })
+    }),
+    new BundleTracker({filename: '../silo-backend/webpack-stats.json'}),
   ],
   postcss: [
     autoprefixer({

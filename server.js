@@ -74,6 +74,7 @@ new WebpackDevServer(webpack(config), {
   hot: false,
   inline: true,
   colors: true,
+  stats: { colors: true },
   timings: true,
   modules: false,
   historyApiFallback: true,

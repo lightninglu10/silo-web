@@ -7,12 +7,13 @@
 import types from '../config/action-types';
 
 const initialState = {
+    isFetchingUserList: false,
     userList: [
-        {name: 'Nicole DelRosso', time: 'Yesterday', message: 'Hello, it\'s me.', id: '1'},
-        {name: 'a DelRosso', time: 'Yesterday', message: 'Hello, it\'s me.', id: '2'},
-        {name: 'b DelRosso', time: 'Yesterday', message: 'Hello, it\'s me.', id: '3'},
-        {name: 'c DelRosso', time: 'Yesterday', message: 'Hello, it\'s me.', id: '4'},
-        {name: 'd DelRosso', time: 'Yesterday', message: 'Hello, it\'s me.', id: '5'}
+        // {name: 'Nicole DelRosso', time: 'Yesterday', message: 'Hello, it\'s me.', id: '1'},
+        // {name: 'a DelRosso', time: 'Yesterday', message: 'Hello, it\'s me.', id: '2'},
+        // {name: 'b DelRosso', time: 'Yesterday', message: 'Hello, it\'s me.', id: '3'},
+        // {name: 'c DelRosso', time: 'Yesterday', message: 'Hello, it\'s me.', id: '4'},
+        // {name: 'd DelRosso', time: 'Yesterday', message: 'Hello, it\'s me.', id: '5'}
     ],
     activeMessage: {
         messages: [],
@@ -22,6 +23,8 @@ const initialState = {
 
 module.exports = function messagesReducer(state = initialState, action) {
     switch(action.type) {
+        case types.FETCHED_USER_LIST:
+        case types.FETCHING_USER_LIST:
         case types.CHOOSE_ACTIVE_MESSAGE:
         return {
             ...state,

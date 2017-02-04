@@ -13,4 +13,6 @@ module.exports = {
 
     // Messages
     CHOOSE_ACTIVE_MESSAGE: 'Choose the active message',
+    FETCHING_USER_LIST: 'Getting user list',
+    FETCHED_USER_LIST: 'Got user list',
 }

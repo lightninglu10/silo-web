@@ -21,6 +21,12 @@ class MessagesContainer extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        let { messagesActions } = this.props;
+
+        messagesActions.getUserList();
+    }
+
     render() {
         let { messages, messagesActions } = this.props;
         return (
@@ -53,6 +59,21 @@ class UserList extends React.Component {
     render() {
         var userList = this.props.userList.map((message, index) => {
             var active = this.state.active == message.id ? styles.activeUserContainer : null;
+
+            var name = '';
+
+            if (message.to.first_name) {
+                name += message.to.first_name;
+            }
+
+            if (message.to.last_name) {
+                name += message.to.last_name;
+            }
+
+            if (!name) {
+                name += message.to.number;
+            }
+
             return (
                 <li className="user" key={message.id} style={{...active, ...styles.userContainer}} onClick={() => this.makeActiveMessage(message)}>
                     <div className="left">
@@ -61,14 +82,14 @@ class UserList extends React.Component {
                     </div>
                     <div className="top" style={styles.userContainerTop}>
                         <span className="name" style={styles.userContainerName}>
-                            {message.name}
+                            { name }
                         </span>
                         <span className="time" style={styles.userContainerTime}>
                             {message.time}
                         </span>
                     </div>
                     <div className="preview">
-                        {message.message}
+                        {message.body}
                     </div>
                 </li>
             );
