@@ -173,6 +173,7 @@ var styles = {
         borderBottom: '1px solid',
         borderColor: messageBorderColor,
         padding: '10px',
+        paddingLeft: '22px',
     },
     searchContainer: {
         padding: '13px 20px',
