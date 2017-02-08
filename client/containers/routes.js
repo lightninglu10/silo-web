@@ -16,6 +16,7 @@ import useScroll from 'react-router-scroll';
 
 // Containers
 import Dashboard from './Dashboard';
+import LoginPage from './LoginPage';
 
 // Components
 import MessagesContainer from '../containers/MessagesContainer';
@@ -34,6 +35,8 @@ class Routes extends React.Component {
                 <Route component={Dashboard}>
                     <Route path="/" component={MessagesContainer} />
                 </Route>
+                <Route path="/login" component={LoginPage} login={true} />
+                <Route path="/signup" component={LoginPage} login={false} />
             </Router>
         );
     }

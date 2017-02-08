@@ -7,5 +7,9 @@
 const BASE_URL = '/api/'
 
 module.exports = {
-    USER_LIST: BASE_URL + 'messages/'
+    MESSAGES_API: BASE_URL + 'messages/',
+    FACEBOOK_LOGIN: BASE_URL + 'login/facebook/',
+    LOGIN: BASE_URL + 'auth/login/',
+    SIGNUP: BASE_URL + 'auth/registration/',
+    USER_INFO: BASE_URL + 'user/',
 }

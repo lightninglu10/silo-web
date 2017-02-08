@@ -16,6 +16,8 @@ import TextareaAutosize from 'react-autosize-textarea';
 // Actions
 import MessagesActions from '../actions/messages';
 
+const NO_USERS = 0;
+
 class MessagesContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -31,8 +33,8 @@ class MessagesContainer extends React.Component {
         let { messages, messagesActions } = this.props;
         return (
             <div className="messages-container" style={styles.messagesContainer}>
-                <UserList messagesActions={messagesActions} userList={messages.userList} />
-                <ActiveMessage activeMessages={messages.activeMessage} />
+                <UserList messagesActions={messagesActions} userList={messages.userList} newMessage={messages.newMessage} />
+                <ActiveMessage activeMessages={messages.activeMessage} messagesActions={messagesActions} newMessage={messages.newMessage} />
             </div>
         );
     }
@@ -93,7 +95,22 @@ class UserList extends React.Component {
                     </div>
                 </li>
             );
-        })
+        });
+
+        if (this.props.newMessage || userList.length === NO_USERS) {
+            var newMessage = <li className="user" key="new_message" style={{...styles.activeUserContainer, ...styles.userContainer}} onClick={() => this.makeActiveMessage(message)}>
+                                 <div className="left">
+                                     <div className="image">
+                                     </div>
+                                 </div>
+                                 <div className="top" style={styles.userContainerTop}>
+                                     <span className="name" style={styles.userContainerName}>
+                                         New Message
+                                     </span>
+                                 </div>
+                             </li>
+            userList.unshift(newMessage)
+        }
 
         return (
             <div className="message-list-container col-sm-4 col-md-3" style={styles.messageListContainer}>
@@ -111,6 +128,42 @@ class UserList extends React.Component {
 class ActiveMessage extends React.Component {
     constructor(props) {
         super(props);
+
+        this.enterPressed = this.enterPressed.bind(this);
+
+        this.state = {
+            message: '',
+        }
+    }
+
+    onMessageChange = (e) => {
+        this.setState({
+            message: e.target.value,
+        });
+    }
+
+    enterPressed(e) {
+        if (!e.shiftKey && e.which === 13) {
+            e.preventDefault();
+
+            // TODO: handle media url's and contact book correctly
+            var data = {
+                body: this.state.message,
+                number: this.props.activeMessages.number,
+                contact_book: 0,
+                media_url: '',
+            }
+
+            this.props.messagesActions.sendMessage(data)
+            .then((json) => {
+                // TODO: properly handle what happens after a message is sent
+                if (json.status == 200) {
+                    this.setState({
+                        message: '',
+                    });
+                }
+            })
+        }
     }
 
     render() {
@@ -120,11 +173,12 @@ class ActiveMessage extends React.Component {
             return (
                 <li key={message.name + '_' + index} className="message-bubble" style={{...styles.messageBubble, ...flexPosition}}>
                     <span className={message.me ? 'mine' : 'theirs'} style={{...userSpecificStyle, ...styles.message}}>
-                        { message.message }
+                        { message.body }
                     </span>
                 </li>
             );
         });
+
         return (
             <div className="active-message-container col-sm-5 col-md-6" style={styles.activeMessageContainer}>
                 <div className="top" style={styles.messageContainerTop}>
@@ -138,7 +192,15 @@ class ActiveMessage extends React.Component {
                     </ol>
                 </div>
                 <div className="input-space" style={styles.inputSpace}>
-                    <TextareaAutosize placeholder="message" type="text" className="form-control" style={styles.inputControl} />
+                    <TextareaAutosize
+                        ref="messageInput"
+                        placeholder="message"
+                        type="text"
+                        className="form-control"
+                        onChange={this.onMessageChange}
+                        value={this.state.value}
+                        style={styles.inputControl}
+                        onKeyDown={this.enterPressed} />
                 </div>
             </div>
         );
@@ -195,6 +257,7 @@ var styles = {
         borderColor: messageBorderColor,
         padding: '10px',
         paddingLeft: '22px',
+        height: '70px',
     },
     searchContainer: {
         padding: '13px 20px',

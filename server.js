@@ -71,12 +71,9 @@ const port = process.env.PORT || 3000;
 
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
-  hot: false,
+  hot: true,
   inline: true,
-  colors: true,
   stats: { colors: true },
-  timings: true,
-  modules: false,
   historyApiFallback: true,
 }).listen(3000, '0.0.0.0', function onStart(err, result) {
   if (err) {

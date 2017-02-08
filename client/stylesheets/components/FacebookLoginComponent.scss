@@ -1,0 +1,22 @@
+.facebook-login-component {
+    width: 100%;
+    margin-bottom: 15px;
+    .facebook-login {
+        width: 100%;
+        background-color: #3B599A;
+        padding: 15px 23px;
+        color: #fff;
+        letter-spacing: 1px;
+
+        .fa-facebook {
+            float: left;
+            margin-top: 3px;
+        }
+    }
+
+    .error {
+        color: #d9534f;
+        text-align: center;
+        margin-top: 10px;
+    }
+}

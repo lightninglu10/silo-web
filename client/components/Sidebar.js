@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 
 // Actions
 import SidebarActions from '../actions/sidebar';
+import MessageActions from '../actions/messages';
 
 
 class Sidebar extends React.Component {
@@ -20,7 +21,7 @@ class Sidebar extends React.Component {
     }
 
     render() {
-        let { dashboard, sidebarActions, sidebar } = this.props;
+        let { dashboard, sidebarActions, sidebar, messageActions } = this.props;
         return (
             <aside className="main-sidebar">
                 {/* sidebar: style can be found in sidebar.less */}
@@ -31,13 +32,13 @@ class Sidebar extends React.Component {
                             <img src={this.props.userImg} className="img-circle" alt="User Image" />
                         </div>
                         <div className="pull-left info">
-                            <p>{this.props.userName}</p>
+                            <p>{this.props.email}</p>
                         </div>
                     </div>
                     {/* send message button */}
                     <div className="send-message" style={styles.sendMessageContainer}>
                         {!dashboard.collapse
-                            ?   <button className="btn bg-yellow" style={styles.sendMessage}>
+                            ?   <button className="btn bg-yellow" style={styles.sendMessage} onClick={messageActions.newMessage}>
                                     SEND MESSAGE
                                 </button>
                             :   <button className="btn bg-yellow" style={[styles.sendMessage, styles.sendMessageSmall]}>
@@ -114,6 +115,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         sidebarActions: bindActionCreators(SidebarActions, dispatch),
+        messageActions: bindActionCreators(MessageActions, dispatch),
     }
 }
 
