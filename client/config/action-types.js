@@ -17,6 +17,11 @@ module.exports = {
     FETCHED_USER_LIST: 'Got user list',
     FETCHING_ACTIVE_MESSAGE: 'Fetching active message',
     MESSAGE_SENT: 'Sent Message',
+    NEW_MESSAGE: 'New message',
+    NEW_PARTICIPANT: 'Add a new participant to receive the message',
+    ADD_MESSAGE: 'Add a message to the conversation',
+    GET_MESSAGES: 'Get all messages of the conversation',
+    DELETE_NEW_PARTICIPANT: 'Delete the participant',
 
     // User
     FACEBOOK_LOGIN_SUCCESS: 'Facebook login success',
@@ -25,4 +30,9 @@ module.exports = {
     LOGOUT_COMPLETE: 'Logged out',
     SIGNUP_ERROR: 'Signup error',
     FETCHED_LOGIN: 'Login Successful',
+    FETCHED_USER_INFO: 'Got user information',
+
+    // Contact
+    SAVED_CONTACT: 'Contact saved',
+
 }

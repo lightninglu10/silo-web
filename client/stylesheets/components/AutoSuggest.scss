@@ -1,0 +1,92 @@
+
+.active-message-container {
+    .ReactTags__tags {
+        width: 100%;
+        display: flex;
+        margin-left: 6px;
+        position: relative;
+        align-items: center;
+        .no-search {
+            display: none;
+        }
+
+        .ReactTags__selected {
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .ReactTags__tagInput {
+            input {
+                margin-left: 5px;
+                outline: none;
+                border: none;
+                width: 100%!important;
+            }
+        }
+
+        .ReactTags__suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+
+            ul {
+                list-style-type: none;
+                box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+                background: white;
+                width: 220px;
+                padding: 0;
+                margin: 0;
+            }
+
+            li {
+                border-bottom: 1px solid #ddd;
+                padding: 10px 5px;
+                margin: 0;
+
+                mark {
+                    text-decoration: underline;
+                    background: none;
+                    font-weight: 600;
+                }
+            }
+
+            .active {
+                background: #b7cfe0;
+                cursor: pointer;
+            }
+        }
+
+        .ReactTags__tag {
+            display: inline-block;
+            box-sizing: border-box;
+            /*margin: 0 6px 6px 0;*/
+            padding: 3px 5px;
+            border: 1px solid #D1D1D1;
+            border-radius: 2px;
+            background: #F1F1F1;
+            margin-left: 2px;
+
+            /* match the font styles */
+            font-size: inherit;
+            line-height: inherit;
+        }
+    }
+
+    .react-tags.is-focused {
+        border-color: #B1B1B1;
+    }
+
+    .ReactTags__remove {
+        /*content: '\2715';*/
+        color: #AAA;
+        margin-left: 8px;
+        display: none;
+    }
+
+    .ReactTags__selected:hover,
+    .ReactTags__selected:focus {
+        border-color: #B1B1B1;
+    }
+}

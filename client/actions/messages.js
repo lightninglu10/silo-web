@@ -7,6 +7,7 @@
 import types from '../config/action-types';
 import API from '../config/api';
 import Helpers from './helpers';
+import Convert from '../utils/convertNumbers';
 
 import Cookie from 'js-cookie';
 
@@ -17,14 +18,27 @@ function fetchingActiveMessage() {
     }
 }
 
-function fetchedActiveMessage(messages, name, number) {
+function fetchedActiveMessage(messages, name, number, message) {
+    message.to.name = `${message.to.first_name} ${message.to.last_name}`.trim()
     return {
         type: types.CHOOSE_ACTIVE_MESSAGE,
+        newMessage: false,
         activeMessage: {
             messages: messages,
-            name: name,
-            number: number,
+            participants: [{
+                name: name,
+                number: number,
+            }],
+            active: message,
         }
+    }
+}
+
+function fetchedMessages(messages) {
+    return {
+        type: types.GET_MESSAGES,
+        newMessage: false,
+        messages: messages,
     }
 }
 
@@ -43,14 +57,58 @@ function fetchedUserList(userList) {
     }
 }
 
-function messageSent(message) {
+function messageSent(message, status) {
     return {
         type: types.MESSAGE_SENT,
         message: message,
+        status: status,
+        newMessage: false,
     }
 }
 
 module.exports = {
+    /***
+     * Removes participants from the message. Mostly for new message
+     */
+
+     removeParticipant: function removeParticipant(number) {
+        return dispatch => {
+            return dispatch({
+                type: types.DELETE_NEW_PARTICIPANT,
+                number: number
+            });
+        }
+     },
+
+    /***
+     * Adds participants to the message. Mostly for new message
+     * If the participant already exists, then load the message,
+     * Else create a new message.
+     */
+     addParticipant: function addParticipant(name, number) {
+        // TODO: magic number
+        if (number.length === 10) {
+            number = "+1" + number;
+        }
+
+        return dispatch => {
+            return dispatch({
+                type: types.NEW_PARTICIPANT,
+                participant: {
+                    number: number,
+                    name: name,
+                }
+            });
+        }
+     },
+     newMessageCancel: function newMessageCancel() {
+        return dispatch => {
+            return dispatch({
+                type: types.NEW_MESSAGE,
+                newMessage: false,
+            });
+        }
+     },
     /***
      * New message: alerts the message container to spring a new message field
      */
@@ -59,6 +117,13 @@ module.exports = {
             return dispatch({
                 type: types.NEW_MESSAGE,
                 newMessage: true,
+                activeMessage: {
+                    participants: [],
+                    messages: [],
+                    active: {
+                        to: {number: null},
+                    },
+                },
             });
         }
      },
@@ -82,11 +147,49 @@ module.exports = {
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
-                return dispatch(messageSent(json));
+                return dispatch(messageSent(json.message, json.status));
             })
             .catch((e) => {
                 // TODO: handle catch
                 alert(e)
+            });
+        }
+    },
+
+    /***
+     * Add message to message list
+     */
+    addMessage: function addMessage(message) {
+        return dispatch => {
+            return dispatch({
+                type: types.ADD_MESSAGE,
+                message: message,
+            });
+        }
+    },
+
+    getMessages: function getMessages(number) {
+        const config = {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'Cache-Control': 'no-cache',
+            },
+        };
+
+        return dispatch => {
+            dispatch(fetchingActiveMessage());
+            return fetch(`${API.MESSAGES_API}${number}`, config)
+            .then(Helpers.checkStatus)
+            .then(Helpers.parseJSON)
+            .then((json) => {
+                if (!json.messages)
+                    debugger
+                return dispatch(fetchedMessages(json.messages));
+            })
+            .catch((e) => {
+                // TODO: handle exceptions
             });
         }
     },
@@ -102,11 +205,16 @@ module.exports = {
         }
 
         if (message.to.last_name) {
-            name += message.to.last_name;
+            name += ` ${message.to.last_name}`;
         }
 
         if (!name) {
-            name += message.to.number;
+            if (message.to.number.length === 10) {
+                var number = Convert.nationalToE164(message.to.number)
+            } else if (message.to.number.length === 12) {
+                var number = Convert.E164toReadable(message.to.number)
+            }
+            name += number;
         }
 
         const config = {
@@ -124,7 +232,7 @@ module.exports = {
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
-                return dispatch(fetchedActiveMessage(json.messages, name, message.to.number));
+                return dispatch(fetchedActiveMessage(json.messages, name, message.to.number, json.messages[0]));
             })
             .catch((e) => {
                 // TODO: handle exceptions

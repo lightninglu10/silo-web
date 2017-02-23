@@ -13,6 +13,7 @@ const initialState = {
     lastName: '',
     email: '',
     phoneNumber: '',
+    contacts: [],
 }
 
 module.exports = function userReducer(state = initialState, action) {
@@ -22,6 +23,8 @@ module.exports = function userReducer(state = initialState, action) {
         case types.FETCHED_LOGIN:
         case types.FACEBOOK_LOGIN_REQUEST:
         case types.FACEBOOK_LOGIN_SUCCESS:
+        case types.FETCHED_USER_INFO:
+        case types.LOGOUT_COMPLETE:
         return {
             ...state,
             ...action,

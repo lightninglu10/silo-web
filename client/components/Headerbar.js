@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 
 // Actions
 import DashboardActions from '../actions/dashboard';
+import LoginActions from '../actions/login';
 
 var style = {
     logolg: {
@@ -25,7 +26,7 @@ class Headerbar extends React.Component {
     }
 
     render() {
-        let { dashboardActions } = this.props;
+        let { dashboardActions, loginActions } = this.props;
         return (
             <header className="main-header">
                 {/* Logo */}
@@ -81,7 +82,7 @@ class Headerbar extends React.Component {
                                             <a href="#" className="btn btn-default btn-flat">Profile</a>
                                         </div>
                                         <div className="pull-right">
-                                            <a href="#" className="btn btn-default btn-flat">Sign out</a>
+                                            <button href="" className="btn btn-default btn-flat" onClick={() => loginActions.logout()}>Sign out</button>
                                         </div>
                                     </li>
                                 </ul>
@@ -174,6 +175,7 @@ class MessageItem extends React.Component {
 function mapDispatchToProps(dispatch) {
     return {
         dashboardActions: bindActionCreators(DashboardActions, dispatch),
+        loginActions: bindActionCreators(LoginActions, dispatch),
     }
 }
 

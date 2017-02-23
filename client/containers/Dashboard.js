@@ -16,7 +16,7 @@ import Headerbar from '../components/Headerbar';
 import reactjsAdminlte from 'adminlte-reactjs';
 
 // Actions
-import LoginActions from '../actions/login';
+import UserActions from '../actions/user';
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -24,10 +24,10 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        let { loginActions } = this.props;
-        this.props.loginActions.getUserInfo()
+        let { userActions } = this.props;
+        userActions.getUserInfo()
         .then(result => {
-            debugger
+            // TODO: figure out what to do when we get a result back
         });
     }
 
@@ -66,7 +66,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        loginActions: bindActionCreators(LoginActions, dispatch),
+        userActions: bindActionCreators(UserActions, dispatch),
     }
 }
 

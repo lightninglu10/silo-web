@@ -4,6 +4,9 @@
 * author: @patr
 */
 
+// Router requirements
+import { browserHistory } from 'react-router';
+
 /* global Promise */
 
 module.exports = {
@@ -25,5 +28,15 @@ module.exports = {
         const error = new Error(response.statusText);
         error.response = response;
         return Promise.reject(error);
+    },
+    /***
+    * Handles the general error cases from an API call.
+    * 403 pushes to /login
+    * 500 pushes to a bad status page
+    */
+    handleError: function handleError(error) {
+        if (error.response.status === 403) {
+            browserHistory.push('/login');
+        }
     },
 };

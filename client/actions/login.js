@@ -1,13 +1,15 @@
 /**
 * Silo
-* messages actions
+* auth actions
 * author: @patr
 */
 
 import types from '../config/action-types';
 import API from '../config/api';
 import Helpers from './helpers';
+
 import Cookie from 'js-cookie';
+import { browserHistory } from 'react-router';
 
 function signupSuccessful(firstName, lastName, email) {
     return {
@@ -21,11 +23,14 @@ function signupSuccessful(firstName, lastName, email) {
 }
 
 function logoutSuccessful() {
+    browserHistory.push('/login');
     return {
         type: types.LOGOUT_COMPLETE,
         isFetchingLogin: false,
         isLoggedIn: false,
         email: undefined,
+        firstName: undefined,
+        lastName: undefined,
     }
 }
 
@@ -43,14 +48,11 @@ function loginFetch() {
     }
 }
 
-function loginSuccessful(firstName, lastName, email) {
+function loginSuccessful() {
     return {
         type: types.FETCHED_LOGIN,
         isFetchingLogin: false,
         isLoggedIn: true,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
     }
 }
 
@@ -73,26 +75,23 @@ function receiveFacebookLoginHelper(json) {
 }
 
 module.exports = {
-    getUserInfo: function getUserInfo() {
+    logout: function logout() {
         const config = {
-            method: 'get',
-            credentials: 'include',
+            method: 'post',
+            credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
                 'Cache-Control': 'no-cache',
+                'X-CSRFToken': Cookie.get('csrftoken'),
             },
-        };
+        }
 
         return dispatch => {
-            return fetch(API.USER_INFO, config)
+            return fetch(API.LOGOUT, config)
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
-                if (json.status !== 200) {
-                    return;
-                } else {
-                    return dispatch(loginSuccessful(json.first_name, json.last_name, json.email));
-                }
+                return dispatch(logoutSuccessful());
             })
         }
     },
@@ -102,7 +101,6 @@ module.exports = {
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': Cookie.get('csrftoken'),
                 'Cache-Control': 'no-cache',
             },
             body: JSON.stringify(data),
@@ -113,7 +111,7 @@ module.exports = {
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
-                return dispatch(loginSuccessful(json.first_name, json.last_name, json.email));
+                return dispatch(loginSuccessful());
             })
         }
     },
@@ -123,7 +121,6 @@ module.exports = {
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': Cookie.get('csrftoken'),
                 'Cache-Control': 'no-cache',
             },
             body: JSON.stringify(data),
@@ -152,7 +149,6 @@ module.exports = {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': Cookie.get('csrftoken'),
                 'Cache-Control': 'no-cache',
             },
             body: JSON.stringify({
