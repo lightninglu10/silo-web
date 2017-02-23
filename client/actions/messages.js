@@ -121,7 +121,9 @@ module.exports = {
                     participants: [],
                     messages: [],
                     active: {
-                        to: {number: null},
+                        to: {
+                            number: '',
+                        },
                     },
                 },
             });
@@ -169,6 +171,7 @@ module.exports = {
     },
 
     getMessages: function getMessages(number) {
+        // Gets messages. Used for failed message and also for loading message on New Message
         const config = {
             method: 'GET',
             credentials: 'include',
@@ -184,8 +187,6 @@ module.exports = {
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
-                if (!json.messages)
-                    debugger
                 return dispatch(fetchedMessages(json.messages));
             })
             .catch((e) => {

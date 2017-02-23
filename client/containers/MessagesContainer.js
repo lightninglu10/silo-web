@@ -115,7 +115,7 @@ class UserList extends React.Component {
 
     render() {
         var userList = this.props.userList.map((message, index) => {
-            var active = this.props.active.to.number == message.to.number ? styles.activeUserContainer : null;
+            var active = this.props.active.to.number == message.to.number && !this.props.newMessage? styles.activeUserContainer : null;
 
             var name = '';
 
@@ -167,6 +167,28 @@ class UserList extends React.Component {
             );
         });
 
+        var name = '';
+
+        if (this.props.active.to.first_name) {
+            name += this.props.active.to.first_name;
+        }
+
+        if (this.props.active.to.last_name) {
+            name += ` ${this.props.active.to.last_name}`;
+        }
+
+        if (!name) {
+            var number = this.props.active.to.number;
+            if (number.length === 10) {
+                number = Convert.nationalToE164(number)
+            } else if (number.length === 12) {
+                number = Convert.E164toReadable(number)
+            }
+            name += number;
+        }
+
+        var newMessage = name ? `New Message to ${name}` : `New Message`;
+
         if (this.props.newMessage || userList.length === NO_USERS) {
             // TODO: figureo ut how to make active new message
             var newMessage = <li className="user" key="new_message" style={{...styles.activeUserContainer, ...styles.userContainer}} onClick={() => this.props.messagesActions.newMessage()}>
@@ -176,7 +198,7 @@ class UserList extends React.Component {
                                  </div>
                                  <div className="top" style={styles.userContainerTop}>
                                      <span className="name" style={styles.userContainerName}>
-                                         New Message
+                                        { newMessage }
                                      </span>
                                  </div>
                              </li>
@@ -336,8 +358,10 @@ class ActiveMessage extends React.Component {
             }
         }
 
+
         if (existing) {
-            this.props.messagesActions.chooseActiveMessage(contact)
+            // If the message exists, get the previous messages
+            this.props.messagesActions.getMessages(contact.to.number)
             .then((result) => {
                 $(`#${messageInput}`).focus();
             });
@@ -469,9 +493,7 @@ class ActiveMessage extends React.Component {
     }
 
     render() {
-        if (!this.props.activeMessages.messages) {
-            debugger
-        }
+
         var messages = this.props.activeMessages.messages.map((message, index) => {
             var index_ref = message.twilio_sid;
             if (index === this.props.activeMessages.messages.length - 1) {

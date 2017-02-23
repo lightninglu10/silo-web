@@ -10,6 +10,7 @@ import React from 'react';
 import TextareaAutosize from 'react-autosize-textarea';
 import Radium from 'radium';
 import Phone from 'react-phone-number-input';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 // Utils
 import Convert from '../utils/convertNumbers';
@@ -34,6 +35,7 @@ class ContactCard extends React.Component {
             save: false,
             editContact: false,
             doneDisabled: true,
+            numberCopied: false,
         }
     }
 
@@ -41,6 +43,19 @@ class ContactCard extends React.Component {
         this.setState({
             notes: e.target.value,
         });
+    }
+
+    onNumberCopy = () => {
+        clearTimeout(this.numberCopiedTimeout);
+        this.setState({
+            numberCopied: true,
+        });
+
+        this.numberCopiedTimeout = setTimeout(() => {
+            this.setState({
+                numberCopied: false,
+            });
+        }, 1000);
     }
 
     autosave = (e) => {
@@ -141,9 +156,9 @@ class ContactCard extends React.Component {
     render() {
         return (
             <div
-                className={"contact-card" + (this.props.className ? ` ${this.props.className}` : '') + (this.props.name ? `contact_${this.props.name}` : `contact_${this.props.number}`)}
+                className={"contact-card" + (this.props.className ? ` ${this.props.className}` : '') + (this.props.name ? `contact_${this.props.name}` : `contact_${this.state.number}`)}
                 style={styles.contactCard}
-                key={this.props.name ? `contact_${this.props.name}` : `contact_${this.props.number}`}
+                key={this.props.name ? `contact_${this.props.name}` : `contact_${this.state.number}`}
             >
                 <div className="nav-section" style={Object.assign({}, styles.nameSection, {justifyContent: 'flex-end'})}>
                     {this.state.editContact
@@ -178,7 +193,7 @@ class ContactCard extends React.Component {
                     <div className="name" style={styles.name}>
                         {this.props.name
                             ? this.props.name
-                            : Convert.E164toReadable(this.props.number)
+                            : Convert.E164toReadable(this.state.number)
                         }
                     </div>
                 </div>
@@ -221,24 +236,35 @@ class ContactCard extends React.Component {
                                     style={styles.inputControl}
                                     country='US'
                                 />
-                            :   <div className="number" style={Object.assign({}, styles.textColor, styles.informationText)}>
-                                    { Convert.E164toReadable(this.props.number) }
+                            :   <div className="copy-number" style={styles.copyStyle}>
+                                    <CopyToClipboard text={this.state.number} onCopy={this.onNumberCopy}>
+                                        <div className="number" style={Object.assign({}, styles.textColor, styles.informationText)}>
+                                            { Convert.E164toReadable(this.state.number) }
+                                        </div>
+                                    </CopyToClipboard>
+                                    {this.state.numberCopied ? <span style={{marginLeft: '10px'}} className="text-red">Copied.</span> : null}
                                 </div>
                         }
                     </div>
-                    <div className="email-information" style={styles.information}>
-                        <div className="labels" style={styles.labels}>
-                            Email
-                        </div>
+                    {this.props.email || this.state.editContact
+                        ?   <div className="email-information" style={styles.information}>
+                                <div className="labels" style={styles.labels}>
+                                    Email
+                                </div>
 
-                        {this.state.editContact
-                            ?   <input ref="editEmail" className="form-control" defaultValue={this.props.email} style={styles.inputControl}/>
-                            :   <div className="email" style={Object.assign({}, styles.textColor, styles.informationText)}>
-                                    { this.props.email }
-                                </div>
-                        }
-                    </div>
+                                {this.state.editContact
+                                    ?   <input ref="editEmail" className="form-control" defaultValue={this.props.email} style={styles.inputControl}/>
+                                    :   <div className="email" style={Object.assign({}, styles.textColor, styles.informationText)}>
+                                            { this.props.email }
+                                        </div>
+                                }
+                            </div>
+                        : null
+                    }
                     <div className="notes-information" style={Object.assign({}, styles.information, {padding: '0px', 'position': 'relative'})}>
+                        <div className="labels" style={Object.assign({}, {padding: '5px'}, styles.labels)}>
+                            Notes
+                        </div>
                         <TextareaAutosize
                             ref="notesInput"
                             placeholder="Put notes here. Saves as you type!"
@@ -248,7 +274,7 @@ class ContactCard extends React.Component {
                             value={this.state.notes}
                             style={styles.textareaControl}
                             onKeyUp={this.autosave}
-                            key={this.props.name ? `contact_notes_${this.props.name}` : `contact_notes_${this.props.number}`}
+                            key={this.props.name ? `contact_notes_${this.props.name}` : `contact_notes_${this.state.number}`}
                             rows={3}
                         />
                         {this.state.save
@@ -267,6 +293,11 @@ class ContactCard extends React.Component {
 }
 
 var styles = {
+    copyStyle: {
+        display: 'flex',
+        cursor: 'pointer',
+        alignItems: 'center',
+    },
     editButtonText: {
         fontSize: '12px',
     },

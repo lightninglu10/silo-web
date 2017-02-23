@@ -17,8 +17,8 @@ const initialState = {
         messages: [],
         active: {
             to: {
-                number: null,
-                name: null
+                number: '',
+                name: ''
             },
         },
     },
@@ -52,7 +52,7 @@ module.exports = function messagesReducer(state = initialState, action) {
             activeMessage: {
                 participants: state.activeMessage.participants,
                 messages: action.messages,
-                active: state.activeMessage.active,
+                active: action.messages[action.messages.length - 1],
             }
         }
 
