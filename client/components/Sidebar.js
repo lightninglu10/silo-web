@@ -41,7 +41,7 @@ class Sidebar extends React.Component {
                             ?   <button className="btn bg-yellow" style={styles.sendMessage} onClick={messageActions.newMessage}>
                                     SEND MESSAGE
                                 </button>
-                            :   <button className="btn bg-yellow" style={[styles.sendMessage, styles.sendMessageSmall]}>
+                            :   <button className="btn bg-yellow" style={[styles.sendMessage, styles.sendMessageSmall]} onClick={messageActions.newMessage}>
                                     <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
                                 </button>
                         }

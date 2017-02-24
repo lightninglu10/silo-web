@@ -39,7 +39,7 @@ class Headerbar extends React.Component {
                 {/* Header Navbar: style can be found in header.less */}
                 <nav className="navbar navbar-static-top" role="navigation">
                     {/* Sidebar toggle button*/}
-                    <a href="#" className="sidebar-toggle" data-toggle="offcanvas" role="button" onClick={dashboardActions.collapseSidebar}>
+                    <a className="sidebar-toggle" data-toggle="offcanvas" role="button" onClick={dashboardActions.collapseSidebar}>
                         <span className="sr-only">Toggle navigation</span>
                     </a>
                     <div className="navbar-custom-menu">

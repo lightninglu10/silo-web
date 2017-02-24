@@ -18,11 +18,28 @@ function fetchingActiveMessage() {
     }
 }
 
+function chooseNewMessage(message) {
+    var participants = []
+    var participant = {}
+    if (message.to.name) {
+        participant.name = message.to.name;
+    }
+
+    if (message.to.number) {
+        participant.number = message.to.number;
+    }
+    if (!$.isEmptyObject(participant))
+        participants.push(participant);
+    return {
+        type: types.CHOOSE_NEW_MESSAGE,
+        participants: participants,
+        active: message,
+    }
+}
+
 function fetchedActiveMessage(messages, name, number, message) {
-    message.to.name = `${message.to.first_name} ${message.to.last_name}`.trim()
     return {
         type: types.CHOOSE_ACTIVE_MESSAGE,
-        newMessage: false,
         activeMessage: {
             messages: messages,
             participants: [{
@@ -37,7 +54,6 @@ function fetchedActiveMessage(messages, name, number, message) {
 function fetchedMessages(messages) {
     return {
         type: types.GET_MESSAGES,
-        newMessage: false,
         messages: messages,
     }
 }
@@ -62,7 +78,6 @@ function messageSent(message, status) {
         type: types.MESSAGE_SENT,
         message: message,
         status: status,
-        newMessage: false,
     }
 }
 
@@ -104,8 +119,8 @@ module.exports = {
      newMessageCancel: function newMessageCancel() {
         return dispatch => {
             return dispatch({
-                type: types.NEW_MESSAGE,
-                newMessage: false,
+                type: types.NEW_MESSAGE_CANCEL,
+                newMessage: null,
             });
         }
      },
@@ -116,13 +131,29 @@ module.exports = {
         return dispatch => {
             return dispatch({
                 type: types.NEW_MESSAGE,
-                newMessage: true,
+                newMessage: {
+                    messages: [],
+                    participants: [],
+                    active: {
+                        newMessage: true,
+                        to: {
+                            number: '',
+                            name: '',
+                            id: 'newMessage',
+                            first_name: '',
+                            last_name: '',
+                        },
+                        id: 'newMessage',
+                        body: '',
+                    }
+                },
                 activeMessage: {
                     participants: [],
                     messages: [],
                     active: {
                         to: {
                             number: '',
+                            id: 'newMessage',
                         },
                     },
                 },
@@ -199,6 +230,14 @@ module.exports = {
      * Chooses the active message
      */
     chooseActiveMessage: function chooseActiveMessage(message) {
+        if (message.newMessage) {
+            return dispatch => {
+                return new Promise((resolve, reject) => {
+                    resolve(dispatch(chooseNewMessage(message)));
+                });
+            }
+        }
+
         var name = '';
 
         if (message.to.first_name) {

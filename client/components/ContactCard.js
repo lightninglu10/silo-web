@@ -34,7 +34,7 @@ class ContactCard extends React.Component {
             number: this.props.number,
             save: false,
             editContact: false,
-            doneDisabled: true,
+            doneDisabled: false,
             numberCopied: false,
         }
     }
@@ -210,7 +210,7 @@ class ContactCard extends React.Component {
                                     ref="editFirstName"
                                     autoFocus={true}
                                     defaultValue={this.props.first_name}
-                                    onChange={this.gotName}
+                                    // onChange={this.gotName}
                                     style={Object.assign({}, styles.inputControl, {marginBottom: '3px'})}
                                 />
                                 <input
@@ -218,7 +218,7 @@ class ContactCard extends React.Component {
                                     placeholder="Last Name"
                                     ref="editLastName"
                                     defaultValue={this.props.last_name}
-                                    onChange={this.gotName}
+                                    // onChange={this.gotName}
                                     style={styles.inputControl}
                                 />
                                 </div>

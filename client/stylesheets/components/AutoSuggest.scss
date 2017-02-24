@@ -1,6 +1,17 @@
+.message-list-container {
+    .preview {
+        -webkit-line-clamp: 2;
+    }
 
+    .active {
+        .preview {
+            color: #fff!important;
+        }
+    }
+}
 .active-message-container {
     .ReactTags__tags {
+        font-weight: 600;
         width: 100%;
         display: flex;
         margin-left: 6px;

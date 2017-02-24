@@ -11,14 +11,16 @@ import Convert from '../utils/convertNumbers';
 const initialState = {
     isFetchingUserList: false,
     userList: [],
-    newMessage: false,
+    newMessage: null,
     activeMessage: {
         participants: [],
         messages: [],
         active: {
             to: {
                 number: '',
-                name: ''
+                name: '',
+                first_name: '',
+                last_name: '',
             },
         },
     },
@@ -30,10 +32,37 @@ module.exports = function messagesReducer(state = initialState, action) {
         case types.FETCHED_USER_LIST:
         case types.FETCHING_USER_LIST:
         case types.CHOOSE_ACTIVE_MESSAGE:
+        case types.NEW_MESSAGE_CANCEL:
+        return {
+            ...state,
+            ...action,
+        }
+
+        case types.MESSAGE_SENT:
+        return {
+            ...state,
+            activeMessage: {
+                participants: state.activeMessage.participants,
+                active: action.message,
+                messages: state.activeMessage.messages,
+            }
+        }
+
+        case types.CHOOSE_NEW_MESSAGE:
+        return {
+            ...state,
+            activeMessage: {
+                participants: action.participants,
+                active: action.active,
+                messages: state.newMessage.messages,
+            }
+        }
+
         case types.NEW_MESSAGE:
         return {
             ...state,
             ...action,
+            userList: [action.newMessage.active].concat(state.userList),
         }
 
         case types.ADD_MESSAGE:
@@ -47,12 +76,35 @@ module.exports = function messagesReducer(state = initialState, action) {
         }
 
         case types.GET_MESSAGES:
+        // TODO: make less messy... We're checking the first element in the userList and seeing if that's a new message. if it is then
+        // update the object to contain the new info
+        var activeParticipants = state.activeMessage.participants;
+        var newMessage;
+
+        if (state.newMessage) {
+            var participants = state.newMessage.participants;
+            newMessage = {
+                messages: action.messages,
+                participants: participants,
+                active: state.newMessage.active,
+            }
+
+            if (state.userList[0].newMessage) {
+                state.userList[0].to = action.messages[0].to;
+                state.userList[0].to.id = 'newMessage';
+                participants = state.newMessage.participants.concat([action.messages[0].to]);
+                activeParticipants = state.activeMessage.participants.concat([action.messages[0].to]);
+            }
+        }        
+
         return {
             ...state,
+            userList: state.userList,
+            newMessage: newMessage,
             activeMessage: {
-                participants: state.activeMessage.participants,
+                participants: activeParticipants,
                 messages: action.messages,
-                active: action.messages[action.messages.length - 1],
+                active: state.activeMessage.active,
             }
         }
 
@@ -60,6 +112,17 @@ module.exports = function messagesReducer(state = initialState, action) {
         var name = ("" + action.participant.name).replace(/\D/g, '');
         return {
             ...state,
+            newMessage: {
+                messages: state.newMessage.messages,
+                participants: state.newMessage.participants.concat([action.participant]),
+                active: {
+                    to: {
+                        number: action.participant.number,
+                        name: action.participant.name,
+                        id: 'newMessage',
+                    }
+                }
+            },
             activeMessage: {
                 participants: state.activeMessage.participants.concat([action.participant]),
                 messages: state.activeMessage.messages,
@@ -67,6 +130,7 @@ module.exports = function messagesReducer(state = initialState, action) {
                     to: {
                         number: action.participant.number,
                         name: action.participant.name,
+                        id: 'newMessage',
                     }
                 }
             }

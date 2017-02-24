@@ -19,6 +19,7 @@ import ContactImage from '../components/ContactImage';
 // NPM utils
 import TextareaAutosize from 'react-autosize-textarea';
 import { WithContext as ReactTags } from 'react-tag-input';
+import Radium from 'radium';
 // import ReactTags from 'react-tag-autocomplete';
 
 // Actions
@@ -37,6 +38,7 @@ export const messageInput = 'messageInput';
 const SUGGESTION_SPLIT = '-----';
 const CONTACT_IMAGE_SIZE = 40;
 
+@Radium
 class MessagesContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -115,7 +117,7 @@ class UserList extends React.Component {
 
     render() {
         var userList = this.props.userList.map((message, index) => {
-            var active = this.props.active.to.number == message.to.number && !this.props.newMessage? styles.activeUserContainer : null;
+            var active = this.props.active.to.id == message.to.id ? styles.activeUserContainer : null;
 
             var name = '';
 
@@ -128,16 +130,21 @@ class UserList extends React.Component {
             }
 
             if (!name) {
-                if (message.to.number.length === 10) {
-                    var number = Convert.nationalToE164(message.to.number)
-                } else if (message.to.number.length === 12) {
-                    var number = Convert.E164toReadable(message.to.number)
+                var number = message.to.number;
+                if (number.length === 10) {
+                    number = Convert.nationalToE164(number)
+                } else if (number.length === 12) {
+                    number = Convert.E164toReadable(number)
                 }
                 name += number;
             }
 
+            if (message.newMessage) {
+                name = name ? `New Message to ${name}` : `New Message`;
+            }
+
             return (
-                <li className="user" key={message.id} style={{...active, ...styles.userContainer}} onClick={() => this.makeActiveMessage(message, active)}>
+                <li className="user" key={message.id} className={this.props.active.to.id === message.to.id ? 'active' : ''} style={{...active, ...styles.userContainer}} onClick={() => this.makeActiveMessage(message, active)}>
                     <div className="left">
                         <div className="image" style={styles.image}>
                             <ContactImage
@@ -156,54 +163,32 @@ class UserList extends React.Component {
                                 { name }
                             </span>
                             <span className="time" style={styles.userContainerTime}>
-                                {message.time}
+                                { message.time }
                             </span>
                         </div>
-                        <div className="preview">
-                            {message.body}
+                        <div className="preview" style={styles.preview}>
+                            { message.body }
                         </div>
                     </div>
                 </li>
             );
         });
 
-        var name = '';
-
-        if (this.props.active.to.first_name) {
-            name += this.props.active.to.first_name;
-        }
-
-        if (this.props.active.to.last_name) {
-            name += ` ${this.props.active.to.last_name}`;
-        }
-
-        if (!name) {
-            var number = this.props.active.to.number;
-            if (number.length === 10) {
-                number = Convert.nationalToE164(number)
-            } else if (number.length === 12) {
-                number = Convert.E164toReadable(number)
-            }
-            name += number;
-        }
-
-        var newMessage = name ? `New Message to ${name}` : `New Message`;
-
-        if (this.props.newMessage || userList.length === NO_USERS) {
-            // TODO: figureo ut how to make active new message
-            var newMessage = <li className="user" key="new_message" style={{...styles.activeUserContainer, ...styles.userContainer}} onClick={() => this.props.messagesActions.newMessage()}>
-                                 <div className="left">
-                                     <div className="image">
-                                     </div>
-                                 </div>
-                                 <div className="top" style={styles.userContainerTop}>
-                                     <span className="name" style={styles.userContainerName}>
-                                        { newMessage }
-                                     </span>
-                                 </div>
-                             </li>
-            userList.unshift(newMessage);
-        }
+        // if (this.props.newMessage || userList.length === NO_USERS) {
+        //     // TODO: figureo ut how to make active new message
+        //     var newMessage = <li className="user" key="new_message" style={{...styles.activeUserContainer, ...styles.userContainer}} onClick={() => this.props.messagesActions.newMessage()}>
+        //                          <div className="left">
+        //                              <div className="image">
+        //                              </div>
+        //                          </div>
+        //                          <div className="top" style={styles.userContainerTop}>
+        //                              <span className="name" style={styles.userContainerName}>
+                                        
+        //                              </span>
+        //                          </div>
+        //                      </li>
+        //     userList.unshift(newMessage);
+        // }
 
         return (
             <div className="message-list-container col-sm-4 col-md-3" style={styles.messageListContainer}>
@@ -358,7 +343,6 @@ class ActiveMessage extends React.Component {
             }
         }
 
-
         if (existing) {
             // If the message exists, get the previous messages
             this.props.messagesActions.getMessages(contact.to.number)
@@ -462,7 +446,8 @@ class ActiveMessage extends React.Component {
         if (nextProps.activeMessages.participants !== this.props.activeMessages.participants) {
             var tags = [].concat(nextProps.activeMessages.participants);
             for (var i = 0; i < tags.length; i++) {
-                tags[i].text = tags[i].name;
+                if (tags[i].name)
+                    tags[i].text = tags[i].name;
             }
             this.setState({
                 tags: tags,
@@ -575,6 +560,15 @@ var messageBorderColor = '#d3d3d3';
 var inputSpaceBackground = '#f2f2f2';
 
 var styles = {
+    preview: {
+        height: '39px',
+        display: 'block', /* Fallback for non-webkit */
+        display: '-webkit-box',
+        webkitLineClamp: 2,
+        webkitBoxOrient: 'vertical',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+    },
     deliveryWarning: {
         fontSize: '20px',
         color: 'red',
@@ -627,7 +621,7 @@ var styles = {
         borderColor: messageBorderColor,
         padding: '10px',
         paddingLeft: '22px',
-        height: '70px',
+        height: '80px',
         display: 'flex',
         cursor: 'pointer',
     },
@@ -686,12 +680,18 @@ var styles = {
         borderRight: '1px solid',
         borderColor: messageBorderColor,
         padding: '0px',
+        overflow: 'auto',
     },
     messagesContainer: {
         display: 'flex',
         width: '100%',
         height: 'calc(100% - 50px)',
-        paddingLeft: '230px',
+        '@media screen and (min-width: 768px)': {
+            paddingLeft: '230px',
+        },
+        ':hover': {
+            'display': 'none',
+        },
     },
     image: {
         background: 'linear-gradient(to bottom, #a5aab4 0%, #888b95 100%)',
