@@ -8,6 +8,7 @@ import React from 'react';
 import { Provider, connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Routes from './routes';
+import { StyleRoot } from 'radium';
 
 class Root extends React.Component {
     
@@ -17,9 +18,11 @@ class Root extends React.Component {
 
     render() {
         return (
-            <div className="startofapp" style={{'height': '100%'}}>
-                <Routes history={this.props.history} />
-            </div>
+            <StyleRoot style={{'height': '100%'}}>
+                <div className="startofapp" style={{'height': '100%'}}>
+                    <Routes history={this.props.history} />
+                </div>
+            </StyleRoot>
         );
     }
 }

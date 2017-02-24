@@ -689,9 +689,6 @@ var styles = {
         '@media screen and (min-width: 768px)': {
             paddingLeft: '230px',
         },
-        ':hover': {
-            'display': 'none',
-        },
     },
     image: {
         background: 'linear-gradient(to bottom, #a5aab4 0%, #888b95 100%)',

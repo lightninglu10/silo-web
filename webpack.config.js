@@ -25,7 +25,7 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     filename: '[name]-[hash].js',
-    publicPath: 'http://localhost:3000/dist/',
+    publicPath: 'http://localhost:3000',
   },
   module: {
     rules: [
@@ -35,7 +35,8 @@ module.exports = {
         include: __dirname + '/client',
         loader: "babel-loader",
         query: {
-          presets: ['react', 'latest', 'stage-2']
+          presets: ['react', 'latest', 'stage-2'],
+          "plugins": ["transform-decorators-legacy"]
         }
       },
       {
