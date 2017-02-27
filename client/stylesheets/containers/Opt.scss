@@ -1,0 +1,21 @@
+
+.opt-in-container {
+
+    .react-phone-number-input {
+        height: 50px;
+        &__country {
+            font-size: 20px;
+
+            button {
+                padding-bottom: 0.25em;
+            }
+        }
+
+        &__phone {
+            text-align: center;
+            font-size: 24px;
+            width: calc(100% - 40px - .3em);
+        }
+    }
+    
+}

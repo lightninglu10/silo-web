@@ -5,6 +5,7 @@
 */
 
 import React from 'react';
+import { Link } from 'react-router';
 
 // Redux
 import { connect } from 'react-redux';
@@ -50,21 +51,21 @@ class Sidebar extends React.Component {
                     {/* sidebar menu: : style can be found in sidebar.less */}
                     <ul className="sidebar-menu">
                         <li className="header">MAIN NAVIGATION</li>
-                        <li className={"treeview" + (sidebar.active === 'received' ? ' active' : '')} onClick={() => sidebarActions.changeActive('received')}>
-                            <a style={styles.pageLink}>
+                        <li className={"treeview" + (sidebar.active === 'received' ? ' active' : '')}>
+                            <Link to={{pathname: '/'}} style={styles.pageLink}>
                                 <i className="fa fa-envelope-o"></i>
                                 <span>Messages</span>
                                 <span className="label label-primary pull-right">4</span>
-                            </a>
+                            </Link>
                             <ul className="treeview-menu">
                                 <li><a href="pages/layout/top-nav.html"><i className="fa fa-circle-o"></i> Top Navigation</a></li>
                             </ul>
                         </li>
-                        <li className={"treeview" + (sidebar.active === 'customers' ? ' active' : '')} onClick={() => sidebarActions.changeActive('customers')}>
-                            <a style={styles.pageLink}>
+                        <li className={"treeview" + (sidebar.active === 'customers' ? ' active' : '')}>
+                            <Link to={{pathname: 'customers'}} style={styles.pageLink}>
                                 <i className="fa fa-user"></i>
                                 <span>Customers</span>
-                            </a>
+                            </Link>
                             <ul className="treeview-menu">
                             </ul>
                         </li>

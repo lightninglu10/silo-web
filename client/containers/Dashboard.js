@@ -5,6 +5,7 @@
 */
 
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 // Redux
 import { connect } from 'react-redux';
@@ -17,6 +18,9 @@ import reactjsAdminlte from 'adminlte-reactjs';
 
 // Actions
 import UserActions from '../actions/user';
+
+// Stylesheets
+import '../stylesheets/containers/Dashboard.scss'
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -47,11 +51,14 @@ class Dashboard extends React.Component {
                 sidebarState = '';
             }
         }
+
         return (
             <div className={"dashboard skin-blue sidebar-mini" + sidebarState} style={{height: '100%'}}>
                 <Sidebar email={user.email} />
                 <Headerbar />
-                { this.props.children }
+                <div className="dashboard-app">
+                    { this.props.children }
+                </div>
             </div>
         );
     }

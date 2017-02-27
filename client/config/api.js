@@ -17,6 +17,8 @@ module.exports = {
     USER_INFO: BASE_URL + 'user/',
     SAVE_CONTACT: BASE_URL + 'contact/',
     LOGOUT: BASE_URL + 'auth/logout/',
+    GET_GROUPS: BASE_URL + 'groups/',
+    OPT_IN: BASE_URL + 'messages/opt/',
 
     // Sockets
     MESSAGES_SOCKET: SOCK + 'messages/',

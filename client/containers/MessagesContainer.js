@@ -92,7 +92,7 @@ class MessagesContainer extends React.Component {
                     number={messages.activeMessage.active.to.number}
                     id={messages.activeMessage.active.to.id}
                     notes={messages.activeMessage.active.to.notes}
-                    className="col-sm-3 col-md-3"
+                    className="col-xs-3 col-md-3"
                     messagesActions={messagesActions}
                     contactActions={userActions}
                 />
@@ -174,24 +174,8 @@ class UserList extends React.Component {
             );
         });
 
-        // if (this.props.newMessage || userList.length === NO_USERS) {
-        //     // TODO: figureo ut how to make active new message
-        //     var newMessage = <li className="user" key="new_message" style={{...styles.activeUserContainer, ...styles.userContainer}} onClick={() => this.props.messagesActions.newMessage()}>
-        //                          <div className="left">
-        //                              <div className="image">
-        //                              </div>
-        //                          </div>
-        //                          <div className="top" style={styles.userContainerTop}>
-        //                              <span className="name" style={styles.userContainerName}>
-                                        
-        //                              </span>
-        //                          </div>
-        //                      </li>
-        //     userList.unshift(newMessage);
-        // }
-
         return (
-            <div className="message-list-container col-sm-4 col-md-3" style={styles.messageListContainer}>
+            <div className="message-list-container col-xs-4 col-md-3" style={styles.messageListContainer}>
                 <div className="search" style={styles.searchContainer}>
                     <input placeholder="&#xf002; Search" type="text" className="form-control" style={styles.inputControl} />
                 </div>
@@ -523,7 +507,7 @@ class ActiveMessage extends React.Component {
                     />
 
         return (
-            <div className="active-message-container col-sm-5 col-md-6" style={styles.activeMessageContainer}>
+            <div className="active-message-container col-xs-5 col-md-6" style={styles.activeMessageContainer}>
                 <audio ref='receiveSound' src='/static/sounds/receive_sound.mp3' />
                 <audio ref='sendSound' src='/static/sounds/send_sound.mp3' />
                 <audio ref='notificationSound' src='/static/sounds/notification.mp3' />
@@ -559,7 +543,7 @@ class ActiveMessage extends React.Component {
 var messageBorderColor = '#d3d3d3';
 var inputSpaceBackground = '#f2f2f2';
 
-var styles = {
+export var styles = {
     preview: {
         height: '39px',
         display: 'block', /* Fallback for non-webkit */
@@ -663,6 +647,7 @@ var styles = {
         paddingBottom: '10px',
         display: 'flex',
         alignItems: 'center',
+        height: '66px',
     },
     messageContainerBottom: {
         borderBottom: '1px solid',
@@ -685,10 +670,7 @@ var styles = {
     messagesContainer: {
         display: 'flex',
         width: '100%',
-        height: 'calc(100% - 50px)',
-        '@media screen and (min-width: 768px)': {
-            paddingLeft: '230px',
-        },
+        height: '100%',
     },
     image: {
         background: 'linear-gradient(to bottom, #a5aab4 0%, #888b95 100%)',

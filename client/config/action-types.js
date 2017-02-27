@@ -33,6 +33,7 @@ module.exports = {
     SIGNUP_ERROR: 'Signup error',
     FETCHED_LOGIN: 'Login Successful',
     FETCHED_USER_INFO: 'Got user information',
+    GET_GROUPS: 'Gets groups',
 
     // Contact
     SAVED_CONTACT: 'Contact saved',

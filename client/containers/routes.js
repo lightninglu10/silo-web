@@ -17,6 +17,8 @@ import useScroll from 'react-router-scroll';
 // Containers
 import Dashboard from './Dashboard';
 import LoginPage from './LoginPage';
+import ContactsContainer from './ContactsContainer';
+import Opt from './Opt';
 
 // Components
 import MessagesContainer from '../containers/MessagesContainer';
@@ -34,7 +36,9 @@ class Routes extends React.Component {
             <Router history={this.props.history} routes={this._routes} onUpdate={() => window.scrollTo(0, 0)}>
                 <Route component={Dashboard}>
                     <Route path="/" component={MessagesContainer} />
+                    <Route path="/customers" component={ContactsContainer} />
                 </Route>
+                <Route path="/opt" component={Opt} />
                 <Route path="/login" component={LoginPage} login={true} />
                 <Route path="/signup" component={LoginPage} login={false} />
             </Router>

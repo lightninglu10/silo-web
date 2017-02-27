@@ -1,0 +1,20 @@
+
+.startofapp {
+    .dashboard-app {
+        width: 100%;
+        height: calc(100% - 50px);
+        transition: padding-left .3s;
+        @media only screen and (min-width: 768px) {
+            padding-left: 230px;
+
+        }
+    }
+
+    .sidebar-collapse {
+        .dashboard-app {
+            @media only screen and (min-width: 768px) {
+                padding-left: 50px;
+            }
+        }
+    }
+}

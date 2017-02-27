@@ -14,6 +14,7 @@ const initialState = {
     email: '',
     phoneNumber: '',
     contacts: [],
+    groups: [],
 }
 
 module.exports = function userReducer(state = initialState, action) {
@@ -25,6 +26,7 @@ module.exports = function userReducer(state = initialState, action) {
         case types.FACEBOOK_LOGIN_SUCCESS:
         case types.FETCHED_USER_INFO:
         case types.LOGOUT_COMPLETE:
+        case types.GET_GROUPS:
         return {
             ...state,
             ...action,

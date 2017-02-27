@@ -33,7 +33,34 @@ function savedContact(firstName, lastName, email, notes, number) {
     }
 }
 
+function getGroups(groups) {
+    return {
+        type: types.GET_GROUPS,
+        groups: groups,
+    }
+}
+
 module.exports = {
+    getAllGroups: function getAllGroups() {
+        const config = {
+            method: 'get',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'Cache-Control': 'no-cache',
+            },
+        };
+
+        return dispatch => {
+            return fetch(API.GET_GROUPS, config)
+            .then(Helpers.checkStatus)
+            .then(Helpers.parseJSON)
+            .then((json) => {
+                // TODO: save the json into redux
+                return dispatch(getGroups(json.groups))
+            });
+        }
+    },
     saveContact: function saveContact(data) {
         const config = {
             method: 'put',
