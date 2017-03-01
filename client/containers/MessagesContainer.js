@@ -548,8 +548,8 @@ export var styles = {
         height: '39px',
         display: 'block', /* Fallback for non-webkit */
         display: '-webkit-box',
-        webkitLineClamp: 2,
-        webkitBoxOrient: 'vertical',
+        WebkitLineClamp: 2,
+        WebkitBoxOrient: 'vertical',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
     },

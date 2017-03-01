@@ -176,7 +176,7 @@ module.exports = {
         };
 
         return dispatch => {
-            return fetch(API.MESSAGES_API, config)
+            return fetch(API.MESSAGES_API, API.POST_CONFIG(data))
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
@@ -203,18 +203,10 @@ module.exports = {
 
     getMessages: function getMessages(number) {
         // Gets messages. Used for failed message and also for loading message on New Message
-        const config = {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache',
-            },
-        };
 
         return dispatch => {
             dispatch(fetchingActiveMessage());
-            return fetch(`${API.MESSAGES_API}${number}`, config)
+            return fetch(`${API.MESSAGES_API}${number}`, API.GET_CONFIG)
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
@@ -257,18 +249,9 @@ module.exports = {
             name += number;
         }
 
-        const config = {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache',
-            },
-        };
-
         return dispatch => {
             dispatch(fetchingActiveMessage());
-            return fetch(`${API.MESSAGES_API}${message.to.number}`, config)
+            return fetch(`${API.MESSAGES_API}${message.to.number}`, API.GET_CONFIG)
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
@@ -284,19 +267,10 @@ module.exports = {
      * Gets the list of users
      */
     getUserList: function getUserList() {
-        
-        const config = {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache',
-            },
-        };
 
         return dispatch => {
             dispatch(fetchingUserList());
-            return fetch(API.MESSAGES_API, config)
+            return fetch(API.MESSAGES_API, API.GET_CONFIG)
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {

@@ -1,7 +1,6 @@
 'use strict';
 
 var webpack = require('webpack')
-var autoprefixer = require('autoprefixer')
 var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -18,8 +17,8 @@ var sassLoaders = [
 module.exports = {
   devtool: 'source-map',
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
+    'react-hot-loader/patch',
+    'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
     './client/index.dev.js'
   ],
   output: {
@@ -36,7 +35,7 @@ module.exports = {
         loader: "babel-loader",
         query: {
           presets: ['react', 'latest', 'stage-2'],
-          "plugins": ["transform-decorators-legacy"]
+          "plugins": ["transform-decorators-legacy", "react-hot-loader/babel"]
         }
       },
       {

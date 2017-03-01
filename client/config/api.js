@@ -4,9 +4,14 @@
 * author: @patr
 */
 
-const BASE_URL = '/api/';
+import Cookie from 'js-cookie';
 
-const SOCK = 'ws://' + window.location.host + '/api/channels/';
+const PRODUCTION_SITE = 'https://dashboard.silohq.com';
+const LOCALHOST = window.location.host === 'silo.ngrok.io' ? 'silo.ngrok.io' : 'localhost:8000'
+
+const BASE_URL = process.env.NODE_ENV === 'production' ? (PRODUCTION_SITE + '/api/') : ('http://' + LOCALHOST + '/api/');
+
+const SOCK = process.env.NODE_ENV === 'production' ? ('ws://' + PRODUCTION_SITE + '/api/channels/') : ('ws://' + LOCALHOST + '/api/channels/');
 
 module.exports = {
     // URLs
@@ -22,4 +27,34 @@ module.exports = {
 
     // Sockets
     MESSAGES_SOCKET: SOCK + 'messages/',
+
+    GET_CONFIG: {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    },
+    POST_CONFIG: function POST_CONFIG(data) {
+        return ({
+            method: 'post',
+            credentials: 'include',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': Cookie.get('csrftoken'),
+            }
+        });
+    },
+    PUT_CONFIG: function PUT_CONFIG(data) {
+        return ({
+            method: 'put',
+            credentials: 'include',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': Cookie.get('csrftoken'),
+            }
+        })
+    },
 }

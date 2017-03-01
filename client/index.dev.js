@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from './config/configure-store-dev';
+import { AppContainer } from 'react-hot-loader';
 import Root from './containers/root';
 
 const store = configureStore()
@@ -16,9 +17,11 @@ history.listen(location => {
 })
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Root className="startofapp" history={history} />
-  </Provider>
+  <AppContainer>
+    <Provider store={store}>
+      <Root className="startofapp" history={history} />
+    </Provider>
+  </AppContainer>
   , document.getElementById('app')
 );
 
@@ -26,9 +29,11 @@ if (module.hot) {
   module.hot.accept('./containers/root', () => {
     const NextRoot = require('./containers/root').default;
     ReactDOM.render(
-      <Provider store={store}>
-        <NextRoot className="startofapp" history={history} />
-      </Provider>,
+      <AppContainer>
+        <Provider store={store}>
+          <NextRoot className="startofapp" history={history} />
+        </Provider>
+      </AppContainer>,
       document.getElementById('app')
     );
   });

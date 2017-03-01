@@ -42,17 +42,8 @@ function getGroups(groups) {
 
 module.exports = {
     getAllGroups: function getAllGroups() {
-        const config = {
-            method: 'get',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache',
-            },
-        };
-
         return dispatch => {
-            return fetch(API.GET_GROUPS, config)
+            return fetch(API.GET_GROUPS, API.GET_CONFIG)
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
@@ -62,19 +53,8 @@ module.exports = {
         }
     },
     saveContact: function saveContact(data) {
-        const config = {
-            method: 'put',
-            credentials: 'include',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache',
-                'X-CSRFToken': Cookie.get('csrftoken'),
-            },
-        };
-
         return dispatch => {
-            return fetch(API.SAVE_CONTACT + `${data.number}/`, config)
+            return fetch(API.SAVE_CONTACT + `${data.number}/`, API.PUT_CONFIG(data))
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
@@ -94,17 +74,8 @@ module.exports = {
         }
     },
     getUserInfo: function getUserInfo() {
-        const config = {
-            method: 'get',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache',
-            },
-        };
-
         return dispatch => {
-            return fetch(API.USER_INFO, config)
+            return fetch(API.USER_INFO, API.GET_CONFIG)
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {

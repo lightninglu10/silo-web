@@ -76,18 +76,8 @@ function receiveFacebookLoginHelper(json) {
 
 module.exports = {
     logout: function logout() {
-        const config = {
-            method: 'post',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache',
-                'X-CSRFToken': Cookie.get('csrftoken'),
-            },
-        }
-
         return dispatch => {
-            return fetch(API.LOGOUT, config)
+            return fetch(API.LOGOUT, API.POST_CONFIG(null))
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
@@ -96,18 +86,8 @@ module.exports = {
         }
     },
     login: function login(data) {
-        const config = {
-            method: 'post',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache',
-            },
-            body: JSON.stringify(data),
-        };
-
         return dispatch => {
-            return fetch(API.LOGIN, config)
+            return fetch(API.LOGIN, API.POST_CONFIG(data))
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
@@ -116,18 +96,8 @@ module.exports = {
         }
     },
     signup: function signup(data) {
-        const config = {
-            method: 'post',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache',
-            },
-            body: JSON.stringify(data),
-        };
-
         return dispatch => {
-            return fetch(API.SIGNUP, config)
+            return fetch(API.SIGNUP, API.POST_CONFIG(data))
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
@@ -145,19 +115,10 @@ module.exports = {
     },
 
     facebookLogin: function facebookLogin(facebook) {
-        const config = {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache',
-            },
-            body: JSON.stringify({
-                'access_token': facebook.accessToken,
-            }),
-        };
+        var data = {'access_token': facebook.accessToken}
         return dispatch => {
             dispatch(requestFacebookLogin());
-            return fetch(API.FACEBOOK, config)
+            return fetch(API.FACEBOOK, API.POST_CONFIG(data))
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {

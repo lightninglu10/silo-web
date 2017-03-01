@@ -1,7 +1,6 @@
 'use strict';
 
 var webpack = require('webpack')
-var autoprefixer = require('autoprefixer')
 var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -24,14 +23,15 @@ module.exports = {
     filename: '[name]-[hash].min.js',
   },
   module: {
-    loaders: [
+    rules: [
       { test: /\.css$/, loader: "style-loader!css-loader" },
       {
         test: /\.jsx?$/,
         include: __dirname + '/client',
         loader: "babel-loader",
         query: {
-          presets: ['react', 'es2015', 'stage-0']
+          presets: ['react', 'latest', 'stage-2'],
+          "plugins": ["transform-decorators-legacy"]
         }
       },
       {
@@ -58,8 +58,5 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       WOWZA_HOSTNAME: JSON.stringify(process.env.WOWZA_HOSTNAME)
     }),
-  ],
-  postcss: [
-    require('autoprefixer')
   ],
 };

@@ -18,6 +18,9 @@ import Radium from 'radium';
 import UserActions from '../actions/user';
 import ContactActions from '../actions/contact';
 
+// Settings
+import { STATIC } from '../config/settings';
+
 // Stylesheets
 import '../stylesheets/containers/Opt.scss';
 
@@ -113,7 +116,7 @@ class Opt extends React.Component {
                 <div className="backlay" style={styles.backlay} />
                 <form className="form-container" onSubmit={this.formSubmit} style={styles.formContainer}>
                     <div className="left" style={styles.formLeft}>
-                        <img className="img" src="/static/img/grey_shirts.jpg" style={styles.formImage}/>
+                        <img className="img" src={`${STATIC}/img/grey_shirts.jpg`} style={styles.formImage}/>
                     </div>
 
                     <div className="right" style={styles.formRight}>
@@ -197,10 +200,10 @@ var styles = {
         top: '0',
         background: 'linear-gradient(135deg, #E6DADA , #274046)',
         backgroundSize: 'cover',
-        webkitFilter: 'blur(3px)',
-        mozFilter: 'blur(3px)',
-        oFilter: 'blur(3px)',
-        msFilter: 'blur(3px)',
+        WebkitFilter: 'blur(3px)',
+        MozFilter: 'blur(3px)',
+        OFilter: 'blur(3px)',
+        MsFilter: 'blur(3px)',
         filter: 'blur(3px)',
     },
     groupRowContainer: {
