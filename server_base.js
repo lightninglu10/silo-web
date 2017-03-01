@@ -14,8 +14,8 @@ app.use(cookieParser());
 // app.use(passport.initialize());
 // app.use(passport.session());
 
-// app.use('/api', function(req, res, next) {
-//     require('./server/app')(req, res, next);
-// });
+app.use('/health', function(req, res, next) {
+    res.status(200).json({success: 'pong!'});
+});
 
 module.exports = app;
