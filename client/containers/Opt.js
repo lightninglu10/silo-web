@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 
 // NPM Utils
 import Phone from 'react-phone-number-input';
+import Radium from 'radium';
 
 // Actions
 import UserActions from '../actions/user';
@@ -20,6 +21,7 @@ import ContactActions from '../actions/contact';
 // Stylesheets
 import '../stylesheets/containers/Opt.scss';
 
+@Radium
 class Opt extends React.Component {
     constructor(props) {
         super(props);
@@ -64,7 +66,6 @@ class Opt extends React.Component {
 
         contactActions.optIn(data)
         .then((result) => {
-            debugger
             if (result.success) {
                 window.location.reload();
             }
@@ -82,10 +83,13 @@ class Opt extends React.Component {
         var groups_inner = []
         user.groups.map((group, index) => {
             var group = <div className="group-box" key={`group_${group.name}_${index}`} style={{'flex': 1}}>
-                            <label><input type="checkbox" value={group.name} onChange={this.handleCheckbox} /> { group.name } </label>
+                            <label>
+                                <input type="checkbox" value={group.name} onChange={this.handleCheckbox} />
+                                <span style={{marginLeft: '5px', fontWeight: 600}}>{ group.name.toLocaleLowerCase() } </span>
+                            </label>
                         </div>
             groups_inner.push(group);
-            if (index % 3 === 0 && index !== 0) {
+            if (index % 2 === 0 && index !== 0) {
                 groups_3.push(groups_inner);
                 groups_inner = []
             }
@@ -95,60 +99,70 @@ class Opt extends React.Component {
 
         var groups = groups_3.map((group, index) => {
             return (
-                <div className="row" key={`group_${index}`} style={styles.groupRowContainer}>
+                <div className="group" key={`group_${index}`} style={styles.groupRowContainer}>
                     { group }
                 </div>
             );
         });
         return (
             <div className="opt-in-container" style={styles.optContainer}>
-                <h1 className="sign-up-label" style={styles.signupLabelContainer}>
-                    Sign up for our Text Message List
-                </h1>
-                <form className="form-container container" onSubmit={this.formSubmit} style={styles.formContainer}>
-                    <div className="name-container row" style={styles.nameContainer}>
-                        <div className="first-name col-xs-6">
-                            <input
+                {user.website
+                    ?   <iframe style={styles.iframe} src={user.website}></iframe>
+                    :   null
+                }
+                <div className="backlay" style={styles.backlay} />
+                <form className="form-container" onSubmit={this.formSubmit} style={styles.formContainer}>
+                    <div className="left" style={styles.formLeft}>
+                        <img className="img" src="/static/img/grey_shirts.jpg" style={styles.formImage}/>
+                    </div>
+
+                    <div className="right" style={styles.formRight}>
+                        <h2 className="sign-up-label" style={styles.titleContainer}>
+                            Sign up for our Text Message List
+                        </h2>
+                        <hr style={{width: '80%', borderColor: 'black'}} />
+                        <div className="name-container" style={styles.nameContainer}>
+                            <div className="first-name" style={{paddingRight: '5px'}}>
+                                <input
+                                    className="form-control"
+                                    placeholder="first name"
+                                    ref="firstName"
+                                    required={true}
+                                    autoFocus={true}
+                                    style={styles.inputControl}
+                                />
+                            </div>
+                            <div className="last-name" style={{paddingLeft: '5px'}}>
+                                <input
+                                    className="form-control"
+                                    placeholder="last name"
+                                    ref="lastName"
+                                    required={true}
+                                    style={styles.inputControl}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="number-container" style={styles.numberContainer}>
+                            <Phone
                                 className="form-control"
-                                placeholder="First Name"
-                                ref="firstName"
+                                value={this.state.number}
+                                onChange={phone => this.setState({ number: phone })}
+                                style={styles.phoneNumberInput}
+                                country='US'
                                 required={true}
-                                autoFocus={true}
-                                style={styles.inputControl}
+                                placeholder="phone number"
                             />
                         </div>
-                        <div className="last-name col-xs-6">
-                            <input
-                                className="form-control"
-                                placeholder="Last Name"
-                                ref="lastName"
-                                required={true}
-                                style={styles.inputControl}
-                            />
+                        <div className="groups-container" style={styles.groupsContainer}>
+                            <div className="group-label" style={{letterSpacing: '1px', paddingBottom: '10px',}}>
+                                notify me about
+                            </div>
+                            { groups }
                         </div>
-                    </div>
-
-                    <div className="number-container" style={styles.numberContainer}>
-                        <Phone
-                            className="form-control"
-                            value={this.state.number}
-                            onChange={phone => this.setState({ number: phone })}
-                            style={styles.phoneNumberInput}
-                            country='US'
-                            required={true}
-                            placeholder="Phone Number"
-                        />
-                    </div>
-
-                    <div className="groups-container" style={styles.groupsContainer}>
-                        <div className="group-label">
-                            Notify me about
+                        <div className="submit-container" style={styles.submitContainer}>
+                            <button className="btn" style={styles.submitButton}> sign up </button>
                         </div>
-                        { groups }
-                    </div>
-
-                    <div className="submit-container" style={styles.submitContainer}>
-                        <button className="btn bg-yellow" style={styles.submitButton}> Sign up </button>
                     </div>
                 </form>
             </div>
@@ -157,6 +171,38 @@ class Opt extends React.Component {
 }
 
 var styles = {
+    iframe: {
+        width: '100%',
+        height: '100%',
+        border: 'none',
+    },
+    formImage: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+    },
+    formLeft: {
+        width: '50%',
+    },
+    formRight: {
+        width: '50%',
+        padding: '15px',
+    },
+    backlay: {
+        transition: 'opacity 200ms ease-in-out',
+        backgroundColor: 'rgba(65, 71, 83, 0.35)',
+        height: '100%',
+        width: '100%',
+        position: 'absolute',
+        top: '0',
+        background: 'linear-gradient(135deg, #E6DADA , #274046)',
+        backgroundSize: 'cover',
+        webkitFilter: 'blur(3px)',
+        mozFilter: 'blur(3px)',
+        oFilter: 'blur(3px)',
+        msFilter: 'blur(3px)',
+        filter: 'blur(3px)',
+    },
     groupRowContainer: {
         display: 'flex',
         alignItems: 'center',
@@ -167,23 +213,35 @@ var styles = {
         paddingTop: '25px',
     },
     submitButton: {
-        fontSize: '24px',
+        fontSize: '18px',
         color: '#fff',
-        letterSpacing: '1px',
+        letterSpacing: '1.5px',
         padding: '10px 16px',
-        width: '60%',
+        width: '100%',
+        background: 'black',
     },
-    signupLabelContainer: {
+    titleContainer: {
         textAlign: 'center',
     },
     optContainer: {
         height: '100%',
     },
     formContainer: {
-
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        background: '#fff',
+        width: '80%',
+        minHeight: '60%',
+        maxHeight: '650px',
+        border: '5px solid black',
+        maxWidth: '650px',
+        display: 'flex',
     },
     nameContainer: {
-        paddingBottom: '25px',
+        paddingBottom: '10px',
+        display: 'flex',
     },
     numberContainer: {
         display: 'flex',
@@ -193,18 +251,18 @@ var styles = {
     groupsContainer: {
         textAlign: 'center',
         fontSize: '18px',
-        paddingTop: '25px',
-        width: '50%',
+        paddingTop: '20px',
         margin: '0 auto',
     },
     phoneNumberInput: {
-        width: '60%',
         textAlign: 'center',
     },
     inputControl: {
         textAlign: 'center',
-        fontSize: '24px',
-        height: '50px',
+        fontSize: '18px',
+        letterSpacing: '.5px',
+        height: '43px',
+        borderColor: 'black',
     }
 }
 
