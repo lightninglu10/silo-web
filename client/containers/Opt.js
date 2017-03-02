@@ -180,15 +180,17 @@ var styles = {
         border: 'none',
     },
     formImage: {
-        width: '100%',
         height: '100%',
+        width: '100%',
         objectFit: 'cover',
     },
     formLeft: {
         width: '50%',
+        height: '100%',
     },
     formRight: {
         width: '50%',
+        height: '100%',
         padding: '15px',
     },
     backlay: {
@@ -241,6 +243,7 @@ var styles = {
         border: '5px solid black',
         maxWidth: '650px',
         display: 'flex',
+        height: '100%',
     },
     nameContainer: {
         paddingBottom: '10px',
