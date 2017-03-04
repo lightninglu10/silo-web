@@ -47,6 +47,7 @@
     "react-copy-to-clipboard": "^4.2.3",
     "react-dom": "^15.4.2",
     "react-facebook-login": "^3.4.3",
+    "react-ga": "^2.1.2",
     "react-initicon": "^0.2.1",
     "react-phone-number-input": "^0.7.4",
     "react-redux": "^5.0.2",

@@ -36,20 +36,19 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
+        loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: sassLoaders.join('!')})
       }
     ]
   },
   plugins: [
     new CleanWebpackPlugin(['dist'], { root: __dirname }),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new ExtractTextPlugin('[name]-[hash].min.css'),
     new CopyWebpackPlugin([{ from: 'client/assets' }]),
     new HtmlWebpackPlugin({
       template: 'client/index.tpl.html',
       filename: 'index.html',
       inject: 'body' }),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new StatsPlugin('webpack.stats.json', {
       source: false,
       modules: false
