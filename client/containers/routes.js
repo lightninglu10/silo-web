@@ -39,7 +39,6 @@ class Routes extends React.Component {
                 </Route>
                 <Route path="/opt" component={Opt} />
                 <Route path="/login" component={LoginPage} login={true} />
-                <Route path="/signup" component={LoginPage} login={false} />
             </Router>
         );
     }
