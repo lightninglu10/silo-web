@@ -9,7 +9,11 @@ import React from 'react';
 // Router requirements
 import { browserHistory } from 'react-router';
 
-export default class EmailSignUpForm extends React.Component {
+// Redux
+import { connect } from 'react-redux';
+
+
+class EmailSignUpForm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -225,101 +229,4 @@ var styles = {
     }
 }
 
-    // validateFirstName() {
-    //     var value = this.refs.firstName.value;
-    //     let valid = true;
-    //     if (value === '' || value === undefined) {
-    //         valid = false;
-    //     }
-
-    //     this.setState({
-    //         validFirstName: valid,
-    //     });
-
-    //     return valid;
-    // }
-
-    // validateLastName() {
-    //     var value = this.refs.lastName.value;
-    //     let valid = true;
-    //     if (value === '' || value === undefined) {
-    //         valid = false;
-    //     }
-
-    //     this.setState({
-    //         validLastName: valid,
-    //     });
-
-    //     return valid;
-    // }
-
-    // validateEmail() {
-    //     const value = this.refs.email.value;
-    //     let valid = true;
-    //     if (value === '' || value === undefined) {
-    //         valid = false;
-    //     }
-
-    //     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    //     if (!re.test(value)) {
-    //         valid = false;
-    //     }
-
-    //     this.setState({
-    //         validEmail: valid,
-    //     });
-    //     return valid;
-    // }
-
-    // validatePassword() {
-    //     const value = this.refs.password.value;
-    //     let valid = true;
-    //     let message = '';
-    //     if (value === undefined || value.length < 6) {
-    //         valid = false;
-    //         message = 'Password should be at least 6 chars long';
-    //     }
-
-    //     this.setState({
-    //         validPassword: valid,
-    //         passwordError: message,
-    //     });
-    //     return valid;
-    // }
-
-    // validatePasswordAgain() {
-    //     const value = this.refs.password_again.value;
-    //     const value_first = this.refs.password.value;
-    //     let valid = true;
-    //     let message = '';
-    //     if (value === '' || value === undefined) {
-    //         valid = false;
-    //     }
-
-    //     if (value !== value_first) {
-    //         valid = false;
-    //         message = 'Both passwords should be identical';
-    //     }
-
-    //     this.setState({
-    //         validPasswordAgain: valid,
-    //         passwordAgainError: message,
-    //     });
-    //     return valid;
-    // }
-
-    // clearAllErrors() {
-    //     this.setState({
-    //         validNickname: true,
-    //         validEmail: true,
-    //         validPassword: true,
-    //         validPasswordAgain: true,
-    //         firstNameError: '',
-    //         lastNameError: '',
-    //         emailError: '',
-    //         passwordError: '',
-    //         passwordAgainError: '',
-    //         loading: false,
-    //     })
-    // }
-
+export default connect()(EmailSignUpForm)
