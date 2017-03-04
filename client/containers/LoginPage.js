@@ -18,10 +18,11 @@ import LoginActions from '../actions/login';
 import MessagesActions from '../actions/messages';
 
 // Components
+import EmailSignUpForm from '../components/EmailSignUpForm';
 import FacebookLoginComponent from '../components/FacebookLoginComponent';
 import EmailLoginForm from '../components/EmailLoginForm';
 
-class LoginComponent extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -184,4 +185,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
