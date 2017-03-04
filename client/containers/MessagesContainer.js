@@ -32,6 +32,7 @@ import '../stylesheets/components/AutoSuggest.scss';
 // Settings
 import API from '../config/api';
 import Convert from '../utils/convertNumbers';
+import { STATIC } from '../config/settings';
 
 const NO_USERS = 0;
 export const messageInput = 'messageInput';
@@ -508,9 +509,9 @@ class ActiveMessage extends React.Component {
 
         return (
             <div className="active-message-container col-xs-5 col-md-6" style={styles.activeMessageContainer}>
-                <audio ref='receiveSound' src='/static/sounds/receive_sound.mp3' />
-                <audio ref='sendSound' src='/static/sounds/send_sound.mp3' />
-                <audio ref='notificationSound' src='/static/sounds/notification.mp3' />
+                <audio ref='receiveSound' src={`${STATIC}/sounds/receive_sound.mp3`} />
+                <audio ref='sendSound' src={`${STATIC}/sounds/send_sound.mp3`} />
+                <audio ref='notificationSound' src={`${STATIC}/sounds/notification.mp3`} />
                 <Websocket ref="socket" url={API.MESSAGES_SOCKET}
                     onMessage={this.handleWebsocketBroadcast} reconnect={true} debug={true} />
                 <div className="top" style={styles.messageContainerTop}>

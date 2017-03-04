@@ -21,10 +21,13 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     filename: '[name]-[hash].min.js',
+    publicPath: '/static',
   },
   module: {
     rules: [
-      { test: /\.css$/, loader: "style-loader!css-loader" },
+      { test: /\.css$/, 
+        loader: "style-loader!css-loader"
+      },
       {
         test: /\.jsx?$/,
         include: __dirname + '/client',
@@ -44,10 +47,12 @@ module.exports = {
     new CleanWebpackPlugin(['dist'], { root: __dirname }),
     new ExtractTextPlugin('[name]-[hash].min.css'),
     new CopyWebpackPlugin([{ from: 'client/assets' }]),
+    new webpack.optimize.UglifyJsPlugin(),
     new HtmlWebpackPlugin({
       template: 'client/index.tpl.html',
       filename: 'index.html',
-      inject: 'body' }),
+      inject: 'body'
+    }),
     new webpack.NoEmitOnErrorsPlugin(),
     new StatsPlugin('webpack.stats.json', {
       source: false,
@@ -55,7 +60,6 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      WOWZA_HOSTNAME: JSON.stringify(process.env.WOWZA_HOSTNAME)
     }),
   ],
 };
