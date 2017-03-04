@@ -47,6 +47,11 @@ module.exports = {
     new CleanWebpackPlugin(['dist'], { root: __dirname }),
     new ExtractTextPlugin('[name]-[hash].min.css'),
     new CopyWebpackPlugin([{ from: 'client/assets' }]),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      }
+    }),
     new webpack.optimize.UglifyJsPlugin(),
     new HtmlWebpackPlugin({
       template: 'client/index.tpl.html',
@@ -58,8 +63,6 @@ module.exports = {
       source: false,
       modules: false
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
+    
   ],
 };
