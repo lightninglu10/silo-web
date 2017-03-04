@@ -18,12 +18,6 @@ history.listen(location => {
 import ReactGA from 'react-ga';
 ReactGA.initialize('UA-92967557-1');
 
-firebase.initializeApp({
-    apiKey: 'AIzaSyCVKleAJUiHi9gpx3WrCwnPVGk8XoRZSnk',
-    authDomain: "codelab-50547.firebaseapp.com",
-    databaseURL: 'https://codelab-50547.firebaseio.com'
-});
-
 ReactDOM.render(
   <Provider store={store}>
     <Root className="startofapp" history={history} />
