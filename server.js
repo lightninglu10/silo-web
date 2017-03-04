@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 
 const app = require('./server_base');
 
-if (env === 'production') {
+if (env !== 'production') {
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~ NOT IN PRODUCTION ~~~~~~~~~~~~~~~~~~~~~~~~');
     const webpack = require('webpack');
     const webpackMiddleware = require('webpack-dev-middleware');
