@@ -18,9 +18,9 @@ import LoginActions from '../actions/login';
 import MessagesActions from '../actions/messages';
 
 // Components
-import EmailSignUpForm from '../components/EmailSignUpForm';
 import FacebookLoginComponent from '../components/FacebookLoginComponent';
 import EmailLoginForm from '../components/EmailLoginForm';
+import EmailSignUpForm from '../components/EmailSignUpForm';
 
 class LoginPage extends React.Component {
     constructor(props) {
