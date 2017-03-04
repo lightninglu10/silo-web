@@ -16,7 +16,7 @@ history.listen(location => {
 })
 
 import ReactGA from 'react-ga';
-ReactGA.initialize('UA-76830287-3');
+ReactGA.initialize('UA-92967557-1');
 
 firebase.initializeApp({
     apiKey: 'AIzaSyCVKleAJUiHi9gpx3WrCwnPVGk8XoRZSnk',
