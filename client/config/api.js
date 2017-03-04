@@ -6,10 +6,10 @@
 
 import Cookie from 'js-cookie';
 
-const PRODUCTION_SITE = 'https://dashboard.silohq.com';
+const PRODUCTION_SITE = process.env.APP_ENV === 'production' ? 'backend.silohq.com' : 'devbackend.silohq.com';
 const LOCALHOST = window.location.host === 'silo.ngrok.io' ? 'silo.ngrok.io' : 'localhost:8000'
 
-const BASE_URL = process.env.NODE_ENV === 'production' ? (PRODUCTION_SITE + '/api/') : ('http://' + LOCALHOST + '/api/');
+const BASE_URL = process.env.NODE_ENV === 'production' ? ('https://' + PRODUCTION_SITE + '/api/') : ('http://' + LOCALHOST + '/api/');
 
 const SOCK = process.env.NODE_ENV === 'production' ? ('ws://' + PRODUCTION_SITE + '/api/channels/') : ('ws://' + LOCALHOST + '/api/channels/');
 
