@@ -20,7 +20,7 @@ import MessagesActions from '../actions/messages';
 // Components
 import FacebookLoginComponent from '../components/FacebookLoginComponent';
 import EmailLoginForm from '../components/EmailLoginForm';
-import EmailSignUpForm from '../components/EmailSignUpForm';
+import EmailSignUp from '../components/EmailSignUp';
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -74,7 +74,7 @@ class LoginPage extends React.Component {
                             </div>
                         :   <div className="signup-form">
                                 {this.state.signupWithEmail
-                                    ?   <EmailSignUpForm
+                                    ?   <EmailSignUp
                                             loginActions={loginActions}
                                             signupWithEmail={this.state.signUpWithEmail}
                                             loading={this.state.loading}
