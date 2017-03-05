@@ -42,6 +42,7 @@ class EmailSignUpForm extends React.Component {
             first_name: this.refs.firstName.value,
             last_name: this.refs.lastName.value,
             email: this.refs.email.value,
+            username: this.refs.email.value,
             password1: this.refs.password.value,
             password2: this.refs.password_again.value,
         }
