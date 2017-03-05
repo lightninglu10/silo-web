@@ -11,7 +11,7 @@ const LOCALHOST = window.location.host === 'silo.ngrok.io' ? 'silo.ngrok.io' : '
 
 const BASE_URL = process.env.NODE_ENV === 'production' ? ('https://' + PRODUCTION_SITE + '/api/') : ('http://' + LOCALHOST + '/api/');
 
-const SOCK = process.env.NODE_ENV === 'production' ? ('ws://' + 'www' + PRODUCTION_SITE + '/api/channels/') : ('ws://' + LOCALHOST + '/api/channels/');
+const SOCK = process.env.NODE_ENV === 'production' ? ('ws://' + 'www.' + PRODUCTION_SITE + '/api/channels/') : ('ws://' + LOCALHOST + '/api/channels/');
 
 module.exports = {
     // URLs
