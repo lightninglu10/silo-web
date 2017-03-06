@@ -22,7 +22,7 @@ module.exports = {
     './client/index.dev.js'
   ],
   output: {
-    path: __dirname + '/dist',
+    path: path.join(__dirname, 'dist'),
     filename: '[name]-[hash].js',
     publicPath: 'http://localhost:3000/',
   },
@@ -31,7 +31,7 @@ module.exports = {
       { test: /\.css$/, loader: "style-loader!css-loader" },
       {
         test: /\.jsx?$/,
-        include: __dirname + '/client',
+        include: path.join(__dirname, 'client'),
         loader: "babel-loader",
         query: {
           presets: ['react', 'latest', 'stage-2'],
