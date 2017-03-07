@@ -164,17 +164,6 @@ module.exports = {
      * Sends the message to specified data
      */
     sendMessage: function sendMessage(data) {
-        const config = {
-            method: 'post',
-            credentials: 'include',
-            headers: {
-                'Cache-Control': 'no-cache',
-                'X-CSRFToken': Cookie.get('csrftoken'),
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        };
-
         return dispatch => {
             return fetch(API.MESSAGES_API, API.POST_CONFIG(data))
             .then(Helpers.checkStatus)
@@ -206,7 +195,7 @@ module.exports = {
 
         return dispatch => {
             dispatch(fetchingActiveMessage());
-            return fetch(`${API.MESSAGES_API}${number}`, API.GET_CONFIG)
+            return fetch(`${API.MESSAGES_API}${number}/`, API.GET_CONFIG)
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
@@ -251,7 +240,7 @@ module.exports = {
 
         return dispatch => {
             dispatch(fetchingActiveMessage());
-            return fetch(`${API.MESSAGES_API}${message.to.number}`, API.GET_CONFIG)
+            return fetch(`${API.MESSAGES_API}${message.to.number}/`, API.GET_CONFIG)
             .then(Helpers.checkStatus)
             .then(Helpers.parseJSON)
             .then((json) => {
