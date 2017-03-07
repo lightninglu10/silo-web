@@ -164,7 +164,8 @@ module.exports = {
      * Sends the message to specified data
      */
     sendMessage: function sendMessage(data) {
-        console.log('SEND MESSAGE:' + Cookie.get('csrftoken'));
+        console.log(Cookie.get());
+        console.log('SEND MESSAGE:' + Cookie.get('csrftoken', { domain: 'devbackend.silohq.com' }));
         return dispatch => {
             return fetch(API.MESSAGES_API, API.POST_CONFIG(data))
             .then(Helpers.checkStatus)
