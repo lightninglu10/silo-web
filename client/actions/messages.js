@@ -164,6 +164,7 @@ module.exports = {
      * Sends the message to specified data
      */
     sendMessage: function sendMessage(data) {
+        console.log('SEND MESSAGE:' + Cookie.get('csrftoken'));
         return dispatch => {
             return fetch(API.MESSAGES_API, API.POST_CONFIG(data))
             .then(Helpers.checkStatus)
@@ -256,7 +257,6 @@ module.exports = {
      * Gets the list of users
      */
     getUserList: function getUserList() {
-
         return dispatch => {
             dispatch(fetchingUserList());
             return fetch(API.MESSAGES_API, API.GET_CONFIG)

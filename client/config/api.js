@@ -36,6 +36,7 @@ module.exports = {
         },
     },
     POST_CONFIG: function POST_CONFIG(data) {
+        console.log(Cookie.get('csrftoken'));
         return ({
             method: 'post',
             credentials: 'include',
