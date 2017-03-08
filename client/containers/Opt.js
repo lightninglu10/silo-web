@@ -241,9 +241,9 @@ var styles = {
         minHeight: '60%',
         maxHeight: '650px',
         border: '5px solid black',
-        maxWidth: '650px',
+        // maxWidth: '650px',
         display: 'flex',
-        height: '100%',
+        height: '80%',
     },
     nameContainer: {
         paddingBottom: '10px',
