@@ -229,7 +229,6 @@ var styles = {
     },
     optContainer: {
         height: '100%',
-        minHeight: '800px',
     },
     formContainer: {
         position: 'absolute',
@@ -237,13 +236,13 @@ var styles = {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         background: '#fff',
-        width: '80%',
-        minHeight: '60%',
-        maxHeight: '650px',
+        // minHeight: '60%',
+        // maxHeight: '650px',
         border: '5px solid black',
         // maxWidth: '650px',
         display: 'flex',
-        height: '80%',
+        width: '90%',
+        height: '90%',
     },
     nameContainer: {
         paddingBottom: '10px',
