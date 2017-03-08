@@ -29,7 +29,7 @@ export default class EmailLoginForm extends React.Component {
 
                 this.props.loginActions.getCSRF()
                 .then((result) => {
-                    if (result.status === 200) {
+                    if (result.csrf) {
                         browserHistory.push('/');
                     }
                 });
