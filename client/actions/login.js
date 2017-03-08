@@ -11,6 +11,13 @@ import Helpers from './helpers';
 import Cookie from 'js-cookie';
 import { browserHistory } from 'react-router';
 
+function gotCSRF(csrf) {
+    return {
+        type: types.GOT_CSRF,
+        csrf: csrf,
+    }
+}
+
 function signupSuccessful(firstName, lastName, email) {
     return {
         type: types.SIGNUP_COMPLETE,
@@ -75,6 +82,17 @@ function receiveFacebookLoginHelper(json) {
 }
 
 module.exports = {
+    getCSRF: function getCSRF() {
+        return dispatch => {
+            return fetch(API.CSRF, API.GET_CONFIG)
+            .then(Helpers.checkStatus)
+            .then(Helpers.parseJSON)
+            .then((json) => {
+                Cookie.set('csrftoken', json.csrf);
+                return dispatch(gotCSRF(json.csrf));
+            });
+        }
+    },
     logout: function logout() {
         return dispatch => {
             return fetch(API.LOGOUT, API.POST_CONFIG(null))

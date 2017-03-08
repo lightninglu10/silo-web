@@ -16,6 +16,7 @@ const SOCK = process.env.NODE_ENV === 'production' ? ('wss://' + PRODUCTION_SITE
 module.exports = {
     // URLs
     MESSAGES_API: BASE_URL + 'messages/',
+    CSRF: BASE_URL + 'csrf/',
     FACEBOOK_LOGIN: BASE_URL + 'login/facebook/',
     LOGIN: BASE_URL + 'auth/login/',
     SIGNUP: BASE_URL + 'auth/registration/',

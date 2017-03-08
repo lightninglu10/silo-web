@@ -12,6 +12,7 @@ const initialState = {
     firstName: '',
     lastName: '',
     email: '',
+    csrf: '',
     phoneNumber: '',
     contacts: [],
     groups: [],
@@ -19,6 +20,7 @@ const initialState = {
 
 module.exports = function userReducer(state = initialState, action) {
     switch(action.type) {
+        case types.GOT_CSRF:
         case types.SIGNUP_ERROR:
         case types.SIGNUP_COMPLETE:
         case types.FETCHED_LOGIN:

@@ -10,6 +10,7 @@ module.exports = {
 
     // Sidebar
     CHANGE_ACTIVE: 'Switch active state',
+    GOT_CSRF: 'Got CSRF',
 
     // Messages
     CHOOSE_ACTIVE_MESSAGE: 'Choose the active message',

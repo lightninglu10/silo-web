@@ -18,6 +18,7 @@ import reactjsAdminlte from 'adminlte-reactjs';
 
 // Actions
 import UserActions from '../actions/user';
+import LoginActions from '../actions/login';
 
 // Stylesheets
 import '../stylesheets/containers/Dashboard.scss'
@@ -28,10 +29,11 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        let { userActions } = this.props;
+        let { loginActions, userActions } = this.props;
         userActions.getUserInfo()
         .then(result => {
             // TODO: figure out what to do when we get a result back
+            this.props.loginActions.getCSRF();
         });
     }
 
@@ -74,6 +76,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         userActions: bindActionCreators(UserActions, dispatch),
+        loginActions: bindActionCreators(LoginActions, dispatch),
     }
 }
 

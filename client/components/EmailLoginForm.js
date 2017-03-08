@@ -26,7 +26,13 @@ export default class EmailLoginForm extends React.Component {
         this.props.loginActions.login(data)
         .then(result => {
             if (result) {
-                browserHistory.push('/');
+
+                this.props.loginActions.getCSRF()
+                .then((result) => {
+                    if (result.status === 200) {
+                        browserHistory.push('/');
+                    }
+                });
             } else {
                 // TODO: handle case of failure
                 debugger

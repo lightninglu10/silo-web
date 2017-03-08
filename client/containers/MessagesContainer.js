@@ -233,7 +233,6 @@ class ActiveMessage extends React.Component {
 
             this.props.messagesActions.newMessageCancel();
 
-
             this.props.messagesActions.sendMessage(data)
             .then((json) => {
                 // TODO: properly handle what happens after a message is sent
