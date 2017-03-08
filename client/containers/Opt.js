@@ -131,7 +131,6 @@ class Opt extends React.Component {
                                     placeholder="first name"
                                     ref="firstName"
                                     required={true}
-                                    autoFocus={true}
                                     style={styles.inputControl}
                                 />
                             </div>
@@ -230,6 +229,7 @@ var styles = {
     },
     optContainer: {
         height: '100%',
+        minHeight: '800px',
     },
     formContainer: {
         position: 'absolute',
