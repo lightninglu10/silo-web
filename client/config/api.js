@@ -16,6 +16,7 @@ const BASE_URL = process.env.NODE_ENV === 'production' ? ('https://' + PRODUCTIO
 const SOCK = process.env.NODE_ENV === 'production' ? ('wss://' + PRODUCTION_SITE + '/api/channels/') : ('ws://' + LOCALHOST + '/api/channels/');
 
 module.exports = {
+    PRODUCTION_SITE: PRODUCTION_SITE,
     // URLs
     MESSAGES_API: BASE_URL + 'messages/',
     CSRF: BASE_URL + 'csrf/',

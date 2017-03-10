@@ -164,8 +164,6 @@ module.exports = {
      * Sends the message to specified data
      */
     sendMessage: function sendMessage(data) {
-        console.log(Cookie.get());
-        console.log('SEND MESSAGE:' + Cookie.get('csrftoken', { domain: 'devbackend.silohq.com' }));
         return dispatch => {
             return fetch(API.MESSAGES_API, API.POST_CONFIG(data))
             .then(Helpers.checkStatus)
@@ -258,6 +256,7 @@ module.exports = {
      * Gets the list of users
      */
     getUserList: function getUserList() {
+        console.log(`Production?: ${process.env.APP_ENV === 'production'}\n PROD_SITE: ${API.PRODUCTION_SITE}\n APP_ENV: ${process.env.APP_ENV}`)
         return dispatch => {
             dispatch(fetchingUserList());
             return fetch(API.MESSAGES_API, API.GET_CONFIG)
