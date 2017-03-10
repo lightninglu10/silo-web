@@ -67,7 +67,7 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.APP_ENV),
-      'process.env.APP_ENV': JSON.stringify(process.env.APP_ENV),
+      'APP_ENV': JSON.stringify(process.env.APP_ENV),
     }),
     new BundleTracker({filename: '../silo-backend/webpack-stats.json'}),
   ],

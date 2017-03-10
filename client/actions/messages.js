@@ -256,7 +256,7 @@ module.exports = {
      * Gets the list of users
      */
     getUserList: function getUserList() {
-        console.log(`Production?: ${process.env.APP_ENV === 'production'}\n PROD_SITE: ${API.PRODUCTION_SITE}\n APP_ENV: ${process.env.APP_ENV}`)
+        console.log(`Production?: ${process.env.APP_ENV === 'production'}\n PROD_SITE: ${API.PRODUCTION_SITE}\n APP_ENV: ${APP_ENV}\n NODE_ENV: ${process.env.NODE_ENV}`)
         return dispatch => {
             dispatch(fetchingUserList());
             return fetch(API.MESSAGES_API, API.GET_CONFIG)
