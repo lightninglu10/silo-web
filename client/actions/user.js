@@ -10,7 +10,7 @@ import Helpers from './helpers';
 
 import Cookie from 'js-cookie';
 
-function fetchedUserInfo(firstName, lastName, email, contacts) {
+function fetchedUserInfo(firstName, lastName, email, contacts, website) {
     return {
         type: types.FETCHED_USER_INFO,
         isFetchingLogin: false,
@@ -19,6 +19,7 @@ function fetchedUserInfo(firstName, lastName, email, contacts) {
         lastName: lastName,
         email: email,
         contacts: contacts,
+        website: website,
     }
 }
 
@@ -83,7 +84,8 @@ module.exports = {
                     // TODO: figure out what to do with failure states
                     return;
                 } else {
-                    return dispatch(fetchedUserInfo(json.first_name, json.last_name, json.email, json.contacts));
+                    // TODO: fix the user object coming in
+                    return dispatch(fetchedUserInfo(json.first_name, json.last_name, json.user.email, json.contacts, json.website));
                 }
             })
             .catch((e) => {

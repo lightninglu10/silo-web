@@ -78,6 +78,7 @@ class Opt extends React.Component {
     componentDidMount() {
         let { userActions } = this.props;
         userActions.getAllGroups();
+        userActions.getUserInfo();
     }
 
     render() {
@@ -107,13 +108,15 @@ class Opt extends React.Component {
                 </div>
             );
         });
+
+        console.log(user.website)
         return (
             <div className="opt-in-container" style={styles.optContainer}>
+                <div className="backlay" style={styles.backlay} />
                 {user.website
                     ?   <iframe style={styles.iframe} src={user.website}></iframe>
                     :   null
                 }
-                <div className="backlay" style={styles.backlay} />
                 <form className="form-container" onSubmit={this.formSubmit} style={styles.formContainer}>
                     <div className="left" style={styles.formLeft}>
                         <img className="img" src={`${STATIC}/img/grey_shirts.jpg`} style={styles.formImage}/>
@@ -125,7 +128,7 @@ class Opt extends React.Component {
                         </h2>
                         <hr style={{width: '80%', borderColor: 'black'}} />
                         <div className="name-container" style={styles.nameContainer}>
-                            <div className="first-name" style={{paddingRight: '5px'}}>
+                            <div className="first-name" style={{paddingRight: '5px', 'width': '50%'}}>
                                 <input
                                     className="form-control"
                                     placeholder="first name"
@@ -134,7 +137,7 @@ class Opt extends React.Component {
                                     style={styles.inputControl}
                                 />
                             </div>
-                            <div className="last-name" style={{paddingLeft: '5px'}}>
+                            <div className="last-name" style={{paddingLeft: '5px', 'width': '50%'}}>
                                 <input
                                     className="form-control"
                                     placeholder="last name"
@@ -176,6 +179,7 @@ var styles = {
     iframe: {
         width: '100%',
         height: '100%',
+        position: 'absolute',
         border: 'none',
     },
     formImage: {
@@ -241,8 +245,8 @@ var styles = {
         border: '5px solid black',
         // maxWidth: '650px',
         display: 'flex',
-        width: '90%',
-        height: '90%',
+        width: '85%',
+        height: '85%',
     },
     nameContainer: {
         paddingBottom: '10px',

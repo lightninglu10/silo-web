@@ -16,6 +16,7 @@ const initialState = {
     phoneNumber: '',
     contacts: [],
     groups: [],
+    website: '',
 }
 
 module.exports = function userReducer(state = initialState, action) {
