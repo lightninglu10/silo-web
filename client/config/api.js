@@ -7,6 +7,8 @@
 import Cookie from 'js-cookie';
 
 const PRODUCTION_SITE = process.env.APP_ENV === 'production' ? 'backend.silohq.com' : 'devbackend.silohq.com';
+console.log(process.env.APP_ENV === 'production')
+console.log(PRODUCTION_SITE)
 const LOCALHOST = window.location.host === 'silo.ngrok.io' ? 'silo.ngrok.io' : 'localhost:8000'
 
 const BASE_URL = process.env.NODE_ENV === 'production' ? ('https://' + PRODUCTION_SITE + '/api/') : ('http://' + LOCALHOST + '/api/');
